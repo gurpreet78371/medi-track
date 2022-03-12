@@ -32,7 +32,7 @@ section {
 }
 .home-navbar.sticky {
   padding: 15px 0;
-  background: crimson;
+  /* background: crimson; */
 }
 .home-navbar .max-width {
   display: flex;
@@ -207,4 +207,9 @@ section {
   font-weight: bold;
   border-bottom: 1px solid black;
   margin-bottom: 15px;
+}
+
+.inactive {
+  cursor: not-allowed;
+  background-color: blue;
 }
