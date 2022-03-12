@@ -1,8 +1,8 @@
 import React from "react";
-import Head from "next/head";
+import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect } from "react";
 
-export default function register() {
+export default function register({usersInfo}) {
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -38,11 +38,26 @@ export default function register() {
                   <th scope="col">S.No.</th>
                   <th scope="col">Name</th>
                   <th scope="col">Address</th>
-                  <th scope="col">Contact</th>
-                  <th scope="col">Type</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Role</th>
                 </tr>
               </thead>
               <tbody>
+                {usersInfo.map((userobj,index)=>{
+                    return (
+                        <tr key={userobj.ethAddress}>
+                            <td>{index+1}</td>
+                            <td>
+                                <a href="#">{userobj.name}</a>
+                            </td>
+                            <td>
+                                {userobj.ethAddress}
+                            </td>
+                            <td>{userobj.location}</td>
+                            <td>{userobj.role}</td>
+                        </tr>
+                    );
+                })}
                 <tr>
                   <td>1</td>
                   <td>
@@ -115,4 +130,40 @@ export default function register() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps(){
+    const users=await supplychain.methods.getUsers().call();
+    let usersInfo=[];
+    for (let user in users){
+        const userInfo=await supplychain.methods.getUserInfo(users[parseInt(user)]).call();
+        let rolestr;
+        if(userInfo.role==1){
+            rolestr="Manufacturer";
+        }
+        else if(userInfo.role==2){
+            rolestr="Wholesaler";
+        }
+        else if(userInfo.role==3){
+            rolestr="Distributer";
+        }
+        else if(userInfo.role==4){
+            rolestr="Pharma";
+        }
+        else if(userInfo.role==5){
+            rolestr="Transporter";
+        }
+        let userobj={
+            name: userInfo.name,
+            location: userInfo.location,
+            ethAddress:userInfo.ethAddress,
+            role: rolestr
+        };
+        usersInfo.push(userobj);
+    }
+    return {
+        props:{
+            usersInfo
+        }
+    }
 }
