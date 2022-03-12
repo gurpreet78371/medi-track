@@ -80,41 +80,41 @@ export default function register({ usersInfo }) {
             </table>
           </div>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+        </div>
+    );
 }
 
 export async function getStaticProps() {
-  const users = await supplychain.methods.getUsers().call();
-  let usersInfo = [];
-  for (let user in users) {
-    const userInfo = await supplychain.methods
-      .getUserInfo(users[parseInt(user)])
-      .call();
-    let rolestr;
-    if (userInfo.role == 1) {
-      rolestr = "Manufacturer";
-    } else if (userInfo.role == 2) {
-      rolestr = "Wholesaler";
-    } else if (userInfo.role == 3) {
-      rolestr = "Distributer";
-    } else if (userInfo.role == 4) {
-      rolestr = "Pharma";
-    } else if (userInfo.role == 5) {
-      rolestr = "Transporter";
+    const users = await supplychain.methods.getUsers().call();
+    let usersInfo = [];
+    for (let user in users) {
+        const userInfo = await supplychain.methods
+            .getUserInfo(users[parseInt(user)])
+            .call();
+        let rolestr;
+        if (userInfo.role == 1) {
+            rolestr = "Manufacturer";
+        } else if (userInfo.role == 2) {
+            rolestr = "Wholesaler";
+        } else if (userInfo.role == 3) {
+            rolestr = "Distributer";
+        } else if (userInfo.role == 4) {
+            rolestr = "Pharma";
+        } else if (userInfo.role == 5) {
+            rolestr = "Transporter";
+        }
+        let userobj = {
+            name: userInfo.name,
+            location: userInfo.location,
+            ethAddress: userInfo.ethAddress,
+            role: rolestr,
+        };
+        usersInfo.push(userobj);
     }
-    let userobj = {
-      name: userInfo.name,
-      location: userInfo.location,
-      ethAddress: userInfo.ethAddress,
-      role: rolestr,
+    return {
+        props: {
+            usersInfo,
+        },
     };
-    usersInfo.push(userobj);
-  }
-  return {
-    props: {
-      usersInfo,
-    },
-  };
 }
