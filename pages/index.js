@@ -1,7 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
 
 export default function index() {
   // $(document).ready(function () {
