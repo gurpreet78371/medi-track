@@ -94,6 +94,7 @@ export default function register({ usersInfo }) {
                 })}
               </tbody>
             </table>
+            {userData.length==0?<p>No User Available</p>:<p></p>}
           </div>
         </div>
         </div>

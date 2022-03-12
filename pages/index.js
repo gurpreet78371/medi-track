@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 export default function index() {
   const [address, setAddress] = useState("");
+  const [loading,setLoading] =useState(false);
   const [role, setRole] = useState("");
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function index() {
     if (window.ethereum == "undefined") {
       alert("MetaMask is not installed!!!");
     } else {
+      setLoading(true);
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -33,6 +35,7 @@ export default function index() {
       if (owner == account) {
         console.log("You are owner");
         setRole("owner");
+        setLoading(false);
       } else {
         const info = await supplychain.methods.getUserInfo(account).call();
         console.log(info);
@@ -46,7 +49,10 @@ export default function index() {
           setRole("pharma");
         } else if (info.role == 5) {
           setRole("transporter");
+        } else{
+          alert("You are not registered!!!");
         }
+        setLoading(false);
       }
     }
   };
@@ -65,16 +71,19 @@ export default function index() {
             <a href="#">MediTrack Blockchain Transparent Supply</a>
           </div>
           <ul className="menu">
-            <li>
+            {address=="" && loading==false? <li>
               <a className="menu-btn" onClick={getAddress}>
                 Connect to MetaMask
               </a>
-            </li>
-            <li>
+            </li>:<li></li>}
+            {loading?<li className="menu-btn">
+              Loading...
+            </li>:<li></li>}
+            {address!="" && loading==false?<li>
               <a href={`/${encodeURIComponent(role)}`} className="menu-btn">
                 Go to site
               </a>
-            </li>
+            </li>:<li></li>}
           </ul>
           <div className="menu-btn">
             <i className="fas fa-bars" />
