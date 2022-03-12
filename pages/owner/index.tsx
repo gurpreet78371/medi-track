@@ -3,6 +3,11 @@ import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 
+const links = [
+  { name: "Register", address: "#" },
+  { name: "User", address: "#" },
+];
+
 export default function register({ usersInfo }) {
   const [userData, setUserData] = useState(usersInfo);
   const getData = (e) => {
@@ -21,7 +26,7 @@ export default function register({ usersInfo }) {
   };
   return (
     <div className="body">
-      <NavBar></NavBar>
+      <NavBar links={links} active="users" />
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           <div className="table-responsive custom-table-responsive">
@@ -71,7 +76,7 @@ export default function register({ usersInfo }) {
                 })}
               </tbody>
             </table>
-            {userData.length==0?<p>No User Available</p>:<p></p>}
+            {userData.length == 0 ? <p>No User Available</p> : <p></p>}
           </div>
         </div>
       </div>

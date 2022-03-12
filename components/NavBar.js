@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export default function NavBar() {
+export default function NavBar(props) {
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -11,17 +11,34 @@ export default function NavBar() {
   return (
     <div>
       {/* <!-- navbar section start --> */}
-      <nav className={scroll ? "navbar sticky" : "navbar"}>
+      <nav
+        className={
+          scroll
+            ? "navbar sticky navbar-dark bg-secondary"
+            : "navbar navbar-dark bg-secondary"
+        }
+      >
         <div className="max-width">
           <div className="logo">
-            <a href="#">MediTrack Blockchain Transparent Supply</a>
+            <a href="#">MediTrack</a>
           </div>
           <ul className="menu">
-            <li>
-              <a href="" className="menu-btn">
-                Connect to MetaMask
-              </a>
-            </li>
+            {props.links.map((link) => {
+              return (
+                <li>
+                  <a
+                    href={link.address}
+                    className={
+                      props.active === "users"
+                        ? "menu-btn inactive"
+                        : "menu-btn"
+                    }
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
           <div className="menu-btn">
             <i className="fas fa-bars" />
