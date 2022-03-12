@@ -1,66 +1,95 @@
 import React from "react";
 import supplychain from "../../ethereum/supplychain";
 import NavBar from "../../components/NavBar";
+import {useState,useEffect} from "react";
+import web3 from "../../ethereum/web3";
 
 export default function register() {
+  const [address,setAddress]=useState('');
+    const [formvalues,setformvalues]=useState({
+        name: '',
+        address: '',
+        role: '',
+        location: ''
+    });
+    useEffect(async ()=>{
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = web3.utils.toChecksumAddress(accounts[0]);
+        const owner=await supplychain.methods.owner().call();
+        if(account!=owner){
+            alert("You are not a owner");
+        }
+        else{
+            // alert("You are owner");
+            setAddress(account);
+        }
+    },[])
+    const registerUser=async (event)=>{
+        event.preventDefault();
+        console.log(formvalues);
+        await supplychain.methods.registerUser(formvalues.address,formvalues.name,formvalues.location,formvalues.role).send({
+            from: address
+        });
+    }
+    const getUsers=async()=>{
+        const users=await supplychain.methods.getUsers().call();
+        console.log(users);
+        getUserInfo(users[0]);
+    }
+    const getUserInfo=async(address)=>{
+        const user=await supplychain.methods.getUserInfo(address).call();
+        console.log(user);
+    }
   return (
     <div className="register">
       <NavBar></NavBar>
-      <form className="register-form">
+      <form className="register-form" onSubmit={registerUser}>
         <div className="container">
           <h2>Register</h2>
           <p>Please fill in this form to create an account.</p>
-          <label htmlFor="email">
-            <b>Username</b>
+          <label htmlFor="name">
+            <b>Name</b>
           </label>
           <input
             type="text"
-            name="username"
-            placeholder="Enter Username"
+            name='name' value={formvalues.name} onChange={(event) =>{setformvalues({...formvalues,name:event.target.value})}}
+            placeholder="Enter User's Name"
             required
           />
-          <label htmlFor="etherium addrerss">
+          <label htmlFor="address">
             <b>Etherium Address</b>
           </label>
           <input
             type="text"
-            placeholder="Enter address"
-            name="email"
+            placeholder="Enter User's Ethereum address"
+            name='address' value={formvalues.address} onChange={(event) =>{setformvalues({...formvalues,address:event.target.value})}}
             minLength={42}
             maxLength={42}
             required
           />
-          <label htmlFor="psw">
+          <label htmlFor="location">
             <b>Location</b>
           </label>
           <input
             type="text"
-            placeholder="Enter Location"
-            name="psw"
+            placeholder="Enter User's Location"
+            name='location' value={formvalues.location} onChange={(event) =>{setformvalues({...formvalues,location:event.target.value})}}
             data-toggle="modal"
             data-target="#exampleModalLong"
             required
           />
-          <label htmlFor="email">
+          <label htmlFor="role">
             <b> Role</b>
           </label>
           <br />
           <div className="btn-group dropright">
-            <button
-              type="button"
-              className="btn btn-secondary dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Dropright
-            </button>
-            <div className="dropdown-menu">
-              <option value={66}>Manufacturer</option>
-              <option value={66}>Wholesaler</option>
-              <option value={66}>Supplier</option>
-              <option value={66}>Pharmacist</option>
-            </div>
+          <select name="role" className="dropdown-menu" value={formvalues.role} onChange={(event) =>{setformvalues({...formvalues,role:event.target.value})}}>
+            <option value={1}>Manufacturer</option>
+            <option value={2}>Wholesaler</option>
+            <option value={3}>Distributer</option>
+            <option value={4}>Pharma</option>
+            <option value={5}>Transporter</option>
+          </select>
           </div>
           <div className="clearfix">
             <button type="submit" className="btn">
