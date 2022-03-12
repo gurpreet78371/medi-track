@@ -1,8 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
 import { useState, useEffect } from "react";
+import "bootstrap/dist/js/bootstrap.js";
 
 export default function index() {
   const [scroll, setScroll] = useState(false);
@@ -32,8 +31,8 @@ export default function index() {
           </div>
           <ul className="menu">
             <li>
-              <a href="#home" className="menu-btn">
-                Talk to an expert
+              <a href="" className="menu-btn">
+                Connect to MetaMask
               </a>
             </li>
           </ul>
