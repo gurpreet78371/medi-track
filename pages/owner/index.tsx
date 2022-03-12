@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 
 const links = [
-  { name: "Register", address: "#" },
-  { name: "User", address: "#" },
+  { name: "Register", address: "/owner/register", active: false },
+  { name: "User", address: "#", active: true },
 ];
 
 export default function register({ usersInfo }) {
@@ -26,7 +26,7 @@ export default function register({ usersInfo }) {
   };
   return (
     <div className="body">
-      <NavBar links={links} active="users" />
+      <NavBar links={links}/>
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           <div className="table-responsive custom-table-responsive">

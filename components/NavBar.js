@@ -14,8 +14,8 @@ export default function NavBar(props) {
       <nav
         className={
           scroll
-            ? "navbar sticky navbar-dark bg-secondary"
-            : "navbar navbar-dark bg-secondary"
+            ? "navbar sticky navbar-light bg-white"
+            : "navbar navbar-light bg-white"
         }
       >
         <div className="max-width">
@@ -25,11 +25,11 @@ export default function NavBar(props) {
           <ul className="menu">
             {props.links.map((link) => {
               return (
-                <li>
+                <li key={link.address}>
                   <a
                     href={link.address}
                     className={
-                      props.active === "users"
+                      link.active==true
                         ? "menu-btn inactive"
                         : "menu-btn"
                     }

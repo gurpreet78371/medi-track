@@ -70,7 +70,7 @@ a:hover {
 }
 .body .navbar .logo a,
 .register .navbar .logo a {
-  color: #fff;
+  color: crimson;
   font-size: 25px;
   font-weight: 400;
 }
@@ -86,7 +86,7 @@ a:hover {
 .body .navbar .menu li a,
 .register .navbar .menu li a {
   display: block;
-  color: #fff;
+  color: gray;
   font-size: 18px;
   font-weight: 500;
   margin-left: 25px;
@@ -94,7 +94,8 @@ a:hover {
 }
 .body .navbar .menu li a:hover,
 .register .navbar .menu li a:hover {
-  color: #fff;
+  color: darkgray;
+  border-bottom: 2px crimson;
 }
 .body .navbar.sticky .menu li a:hover,
 .register .navbar.sticky .menu li a:hover {

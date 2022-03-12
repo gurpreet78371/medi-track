@@ -12,6 +12,10 @@ export default function register() {
         role: '',
         location: ''
     });
+    const links = [
+      { name: "Register", address: "#", active: true },
+      { name: "User", address: "/owner", active: false },
+    ];
     useEffect(async ()=>{
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = web3.utils.toChecksumAddress(accounts[0]);
@@ -42,7 +46,7 @@ export default function register() {
     }
   return (
     <div className="register">
-      <NavBar></NavBar>
+      <NavBar links={links}></NavBar>
       <form className="register-form" onSubmit={registerUser}>
         <div className="container">
           <h2>Register</h2>
