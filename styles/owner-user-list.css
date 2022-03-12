@@ -1,0 +1,242 @@
+.body {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: #efefef;
+  font-weight: 300;
+}
+
+.body p {
+  color: #b3b3b3;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+a {
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+a,
+a:hover {
+  text-decoration: none !important;
+}
+
+.body .max-width {
+  width: 80%;
+  max-width: 100%;
+  padding: 0 20px;
+  margin: auto;
+}
+
+/* navbar styling */
+.body .navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  padding: 30px 0;
+  font-family: "Ubuntu", sans-serif;
+  transition: all 0.3s ease;
+  background: crimson;
+}
+.body .navbar.sticky {
+  padding: 15px 0;
+  background: crimson;
+}
+.body .navbar .max-width {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.body .navbar .logo a {
+  color: #fff;
+  font-size: 25px;
+  font-weight: 400;
+}
+.body .navbar.sticky .logo a span {
+  color: #fff;
+}
+.body .navbar .menu li {
+  list-style: none;
+  display: inline-block;
+}
+.body .navbar .menu li a {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 25px;
+  transition: color 0.3s ease;
+}
+.body .navbar .menu li a:hover {
+  color: #fff;
+}
+.body .navbar.sticky .menu li a:hover {
+  color: #fff;
+}
+/* menu btn styling */
+.body .menu-btn {
+  color: #fff;
+  font-size: 23px;
+  cursor: pointer;
+  display: none;
+}
+
+.body .content {
+  padding: 7rem 0;
+}
+
+.body .container {
+  margin-top: 50px;
+}
+
+.body h2 {
+  font-size: 20px;
+}
+
+.body .custom-table {
+  min-width: 900px;
+}
+.body .custom-table thead tr,
+.body .custom-table thead th {
+  border-top: none;
+  border-bottom: none !important;
+}
+.body .custom-table tbody th,
+.body .custom-table tbody td {
+  color: #777;
+  font-weight: 400;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  font-weight: 300;
+}
+.body .custom-table tbody th small,
+.body .custom-table tbody td small {
+  color: #b3b3b3;
+  font-weight: 300;
+}
+.body .custom-table tbody tr:not(.spacer) {
+  border-radius: 7px;
+  overflow: hidden;
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+}
+.body .custom-table tbody tr:not(.spacer):hover {
+  -webkit-box-shadow: 0 2px 10px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px -5px rgba(0, 0, 0, 0.1);
+}
+.body .custom-table tbody tr th,
+.body .custom-table tbody tr td {
+  background: #fff;
+  border: none;
+}
+.body .custom-table tbody tr th:first-child,
+.body .custom-table tbody tr td:first-child {
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+}
+.body .custom-table tbody tr th:last-child,
+.body .custom-table tbody tr td:last-child {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+.body .custom-table tbody tr.spacer td {
+  padding: 0 !important;
+  height: 10px;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* Custom Checkbox */
+.body .control {
+  display: block;
+  position: relative;
+  margin-bottom: 25px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.body .control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.body .control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  background: transparent;
+}
+
+.body .control--radio .control__indicator {
+  border-radius: 50%;
+}
+
+.body .control:hover input ~ .control__indicator,
+.body .control input:focus ~ .control__indicator {
+  border: 2px solid #007bff;
+}
+
+.body .control input:checked ~ .control__indicator {
+  border: 2px solid #007bff;
+  background: #007bff;
+}
+
+.body .control input:disabled ~ .control__indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+  border: 2px solid #ccc;
+}
+
+.body .control__indicator:after {
+  font-family: "icomoon";
+  content: "\e5ca";
+  position: absolute;
+  display: none;
+}
+
+.body .control input:checked ~ .control__indicator:after {
+  display: block;
+  color: #fff;
+}
+
+.body .control--checkbox .control__indicator:after {
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -52%);
+  -ms-transform: translate(-50%, -52%);
+  transform: translate(-50%, -52%);
+}
+
+.body .control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: #7b7b7b;
+}
+
+.body .control--checkbox input:disabled:checked ~ .control__indicator {
+  background-color: #007bff;
+  opacity: 0.2;
+  border: 2px solid #007bff;
+}

@@ -3,6 +3,7 @@ import Head from "next/head";
 import web3 from '../ethereum/web3'
 import supplychain from '../ethereum/supplychain';
 import { useState, useEffect } from "react";
+import "bootstrap/dist/js/bootstrap.js";
 
 export default function index() {
   const [address,setAddress]=useState('');
