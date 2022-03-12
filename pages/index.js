@@ -2,78 +2,15 @@ import React from "react";
 import Head from "next/head";
 import $ from "jquery";
 import { findDOMNode } from "react-dom";
+import { useState, useEffect } from "react";
 
 export default function index() {
-  // $(document).ready(function () {
-  //   $(window).scroll(function () {
-  //     // sticky navbar on scroll script
-  //     if (this.scrollY > 20) {
-  //       $(".navbar").addClass("sticky");
-  //     } else {
-  //       $(".navbar").removeClass("sticky");
-  //     }
-
-  //     // scroll-up button show/hide script
-  //     if (this.scrollY > 500) {
-  //       $(".scroll-up-btn").addClass("show");
-  //     } else {
-  //       $(".scroll-up-btn").removeClass("show");
-  //     }
-  //   });
-
-  //   // slide-up script
-  //   $(".scroll-up-btn").click(function () {
-  //     $("html").animate({ scrollTop: 0 });
-  //     // removing smooth scroll on slide-up button click
-  //     $("html").css("scrollBehavior", "auto");
-  //   });
-
-  //   $(".navbar .menu li a").click(function () {
-  //     // applying again smooth scroll on menu items click
-  //     $("html").css("scrollBehavior", "smooth");
-  //   });
-
-  //   // toggle menu/navbar script
-  //   $(".menu-btn").click(function () {
-  //     $(".navbar .menu").toggleClass("active");
-  //     $(".menu-btn i").toggleClass("active");
-  //   });
-  // });
-  // document.querySelector(document).ready(function () {
-  //   document.querySelector(window).scroll(function () {
-  //     // sticky navbar on scroll script
-  //     if (this.scrollY > 20) {
-  //       document.querySelector(".navbar").classList.add("sticky");
-  //     } else {
-  //       document.querySelector(".navbar").removeClass("sticky");
-  //     }
-
-  //     // scroll-up button show/hide script
-  //     if (this.scrollY > 500) {
-  //       document.querySelector(".scroll-up-btn").classList.add("show");
-  //     } else {
-  //       document.querySelector(".scroll-up-btn").removeClass("show");
-  //     }
-  //   });
-
-  //   // slide-up script
-  //   document.querySelector(".scroll-up-btn").click(function () {
-  //     document.documentElement.animate({ scrollTop: 0 });
-  //     // removing smooth scroll on slide-up button click
-  //     document.documentElement.css("scrollBehavior", "auto");
-  //   });
-
-  //   document.querySelector(".navbar .menu li a").click(function () {
-  //     // applying again smooth scroll on menu items click
-  //     document.documentElement.css("scrollBehavior", "smooth");
-  //   });
-
-  //   // toggle menu/navbar script
-  //   document.querySelector(".menu-btn").click(function () {
-  //     document.querySelector(".navbar .menu").classList.toggle("active");
-  //     document.querySelector(".menu-btn i").classList.toggle("active");
-  //   });
-  // });
+  const [scroll, setScroll] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setScroll(window.scrollY > 20);
+    });
+  }, []);
 
   return (
     <div>
@@ -88,7 +25,7 @@ export default function index() {
         <title>Document</title>
       </Head>
       {/* <!-- navbar section start --> */}
-      <nav className="navbar">
+      <nav className={scroll ? "navbar sticky" : "navbar"}>
         <div className="max-width">
           <div className="logo">
             <a href="#">MediTrack Blockchain Transparent Supply</a>
