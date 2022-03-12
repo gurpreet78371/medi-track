@@ -1,50 +1,27 @@
 import React from "react";
 import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect } from "react";
+import NavBar from "../../components/NavBar";
 
 export default function register({ usersInfo }) {
-    const [userData,setUserData]=useState(usersInfo);
-  const [scroll, setScroll] = useState(false);
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setScroll(window.scrollY > 20);
-    });
-  }, []);
-  const getData=(e)=>{
-      console.log(e.target.value);
-    if(e.target.value=="All"){
-        setUserData(usersInfo);
-    }
-    else{
-        let data=[];
-        for (let user in usersInfo){
-            if(usersInfo[user].role==e.target.value){
-                data.push(usersInfo[user]);
-            }
+  const [userData, setUserData] = useState(usersInfo);
+  const getData = (e) => {
+    console.log(e.target.value);
+    if (e.target.value == "All") {
+      setUserData(usersInfo);
+    } else {
+      let data = [];
+      for (let user in usersInfo) {
+        if (usersInfo[user].role == e.target.value) {
+          data.push(usersInfo[user]);
         }
-        setUserData(data);
+      }
+      setUserData(data);
     }
-}
+  };
   return (
     <div className="body">
-      {/* <!-- navbar section start --> */}
-      <nav className={scroll ? "navbar sticky" : "navbar"}>
-        <div className="max-width">
-          <div className="logo">
-            <a href="#">MediTrack Blockchain Transparent Supply</a>
-          </div>
-          <ul className="menu">
-            <li>
-              <a href="" className="menu-btn">
-                Connect to MetaMask
-              </a>
-            </li>
-          </ul>
-          <div className="menu-btn">
-            <i className="fas fa-bars" />
-          </div>
-        </div>
-      </nav>
+      <NavBar></NavBar>
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           <div className="table-responsive custom-table-responsive">
@@ -97,41 +74,41 @@ export default function register({ usersInfo }) {
             {userData.length==0?<p>No User Available</p>:<p></p>}
           </div>
         </div>
-        </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export async function getStaticProps() {
-    const users = await supplychain.methods.getUsers().call();
-    let usersInfo = [];
-    for (let user in users) {
-        const userInfo = await supplychain.methods
-            .getUserInfo(users[parseInt(user)])
-            .call();
-        let rolestr;
-        if (userInfo.role == 1) {
-            rolestr = "Manufacturer";
-        } else if (userInfo.role == 2) {
-            rolestr = "Wholesaler";
-        } else if (userInfo.role == 3) {
-            rolestr = "Distributer";
-        } else if (userInfo.role == 4) {
-            rolestr = "Pharma";
-        } else if (userInfo.role == 5) {
-            rolestr = "Transporter";
-        }
-        let userobj = {
-            name: userInfo.name,
-            location: userInfo.location,
-            ethAddress: userInfo.ethAddress,
-            role: rolestr,
-        };
-        usersInfo.push(userobj);
+  const users = await supplychain.methods.getUsers().call();
+  let usersInfo = [];
+  for (let user in users) {
+    const userInfo = await supplychain.methods
+      .getUserInfo(users[parseInt(user)])
+      .call();
+    let rolestr;
+    if (userInfo.role == 1) {
+      rolestr = "Manufacturer";
+    } else if (userInfo.role == 2) {
+      rolestr = "Wholesaler";
+    } else if (userInfo.role == 3) {
+      rolestr = "Distributer";
+    } else if (userInfo.role == 4) {
+      rolestr = "Pharma";
+    } else if (userInfo.role == 5) {
+      rolestr = "Transporter";
     }
-    return {
-        props: {
-            usersInfo,
-        },
+    let userobj = {
+      name: userInfo.name,
+      location: userInfo.location,
+      ethAddress: userInfo.ethAddress,
+      role: rolestr,
     };
+    usersInfo.push(userobj);
+  }
+  return {
+    props: {
+      usersInfo,
+    },
+  };
 }
