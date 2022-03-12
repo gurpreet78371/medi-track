@@ -3,12 +3,28 @@ import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect } from "react";
 
 export default function register({ usersInfo }) {
+    const [userData,setUserData]=useState(usersInfo);
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScroll(window.scrollY > 20);
     });
   }, []);
+  const getManData=(e)=>{
+      console.log(e.target.value);
+    if(e.target.value=="All"){
+        setUserData(usersInfo);
+    }
+    else{
+        let data=[];
+        for (let user in usersInfo){
+            if(usersInfo[user].role==e.target.value){
+                data.push(usersInfo[user]);
+            }
+        }
+        setUserData(data);
+    }
+}
   return (
     <div className="body">
       {/* <!-- navbar section start --> */}
@@ -37,13 +53,13 @@ export default function register({ usersInfo }) {
                 <label htmlFor="filter" className="filter-label">
                   Filter:
                 </label>
-                <select name="filter" id="filter">
-                  <option value="all">All Users</option>
-                  <option value="manufacturer">Manufacturer</option>
-                  <option value="wholesaler">Wholesaler</option>
-                  <option value="distributer">Distributer</option>
-                  <option value="pharma">Pharma</option>
-                  <option value="transporter">Transporter</option>
+                <select name="filter" id="filter" onChange={getManData}>
+                  <option value="All">All Users</option>
+                  <option value="Manufacturer">Manufacturer</option>
+                  <option value="Wholesaler">Wholesaler</option>
+                  <option value="Distributer">Distributer</option>
+                  <option value="Pharma">Pharma</option>
+                  <option value="Transporter">Transporter</option>
                 </select>
               </div>
             </div>
@@ -58,7 +74,7 @@ export default function register({ usersInfo }) {
                 </tr>
               </thead>
               <tbody>
-                {usersInfo.map((userobj, index) => {
+                {userData.map((userobj, index) => {
                   return (
                     <>
                       <tr className="spacer">
