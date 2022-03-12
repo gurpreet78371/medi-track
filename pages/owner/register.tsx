@@ -1,35 +1,11 @@
 import React from "react";
 import supplychain from "../../ethereum/supplychain";
-import { useState, useEffect } from "react";
+import NavBar from "../../components/NavBar";
 
-export default function register({ usersInfo }) {
-  const [role, setRole] = useState("");
-  const [scroll, setScroll] = useState(false);
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setScroll(window.scrollY > 20);
-    });
-  }, []);
+export default function register() {
   return (
     <div className="register">
-      {/* <!-- navbar section start --> */}
-      <nav className={scroll ? "navbar sticky" : "navbar"}>
-        <div className="max-width">
-          <div className="logo">
-            <a href="#">MediTrack Blockchain Transparent Supply</a>
-          </div>
-          <ul className="menu">
-            <li>
-              <a href="" className="menu-btn">
-                Connect to MetaMask
-              </a>
-            </li>
-          </ul>
-          <div className="menu-btn">
-            <i className="fas fa-bars" />
-          </div>
-        </div>
-      </nav>
+      <NavBar></NavBar>
       <form className="register-form">
         <div className="container">
           <h2>Register</h2>
