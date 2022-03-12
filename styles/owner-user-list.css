@@ -38,7 +38,8 @@ a:hover {
   text-decoration: none !important;
 }
 
-.body .max-width {
+.body .max-width,
+.register .max-width {
   width: 80%;
   max-width: 100%;
   padding: 0 20px;
@@ -46,7 +47,8 @@ a:hover {
 }
 
 /* navbar styling */
-.body .navbar {
+.body .navbar,
+.register .navbar {
   position: fixed;
   width: 100%;
   z-index: 999;
@@ -55,28 +57,34 @@ a:hover {
   transition: all 0.3s ease;
   background: crimson;
 }
-.body .navbar.sticky {
+.body .navbar.sticky,
+.register .navbar.sticky {
   padding: 15px 0;
   background: crimson;
 }
-.body .navbar .max-width {
+.body .navbar .max-width,
+.register .navbar .max-width {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.body .navbar .logo a {
+.body .navbar .logo a,
+.register .navbar .logo a {
   color: #fff;
   font-size: 25px;
   font-weight: 400;
 }
-.body .navbar.sticky .logo a span {
+.body .navbar.sticky .logo a span,
+.register .navbar.sticky .logo a span {
   color: #fff;
 }
-.body .navbar .menu li {
+.body .navbar .menu li,
+.register .navbar .menu li {
   list-style: none;
   display: inline-block;
 }
-.body .navbar .menu li a {
+.body .navbar .menu li a,
+.register .navbar .menu li a {
   display: block;
   color: #fff;
   font-size: 18px;
@@ -84,14 +92,17 @@ a:hover {
   margin-left: 25px;
   transition: color 0.3s ease;
 }
-.body .navbar .menu li a:hover {
+.body .navbar .menu li a:hover,
+.register .navbar .menu li a:hover {
   color: #fff;
 }
-.body .navbar.sticky .menu li a:hover {
+.body .navbar.sticky .menu li a:hover,
+.register .navbar.sticky .menu li a:hover {
   color: #fff;
 }
 /* menu btn styling */
-.body .menu-btn {
+.body .menu-btn,
+.register .menu-btn {
   color: #fff;
   font-size: 23px;
   cursor: pointer;
