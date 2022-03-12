@@ -10,7 +10,7 @@ export default function register({ usersInfo }) {
       setScroll(window.scrollY > 20);
     });
   }, []);
-  const getManData=(e)=>{
+  const getData=(e)=>{
       console.log(e.target.value);
     if(e.target.value=="All"){
         setUserData(usersInfo);
@@ -53,7 +53,7 @@ export default function register({ usersInfo }) {
                 <label htmlFor="filter" className="filter-label">
                   Filter:
                 </label>
-                <select name="filter" id="filter" onChange={getManData}>
+                <select name="filter" id="filter" onChange={getData}>
                   <option value="All">All Users</option>
                   <option value="Manufacturer">Manufacturer</option>
                   <option value="Wholesaler">Wholesaler</option>
