@@ -1,16 +1,59 @@
 import React from "react";
 import Head from "next/head";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
+import web3 from '../ethereum/web3'
+import supplychain from '../ethereum/supplychain';
 import { useState, useEffect } from "react";
 
 export default function index() {
+  const [address,setAddress]=useState('');
+  const [role,setRole]=useState('');
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScroll(window.scrollY > 20);
     });
   }, []);
+
+  const getAddress=async () =>{
+    if(window.ethereum=='undefined'){
+      alert('MetaMask is not installed!!!');
+    }
+    else{
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const account = web3.utils.toChecksumAddress(accounts[0]);
+      setAddress(account);
+      const owner=await supplychain.methods.owner().call();
+      console.log(typeof(account));
+      console.log(typeof(owner));
+      console.log(owner==account);
+      console.log(owner);
+      console.log(account);
+      console.log();
+      if(owner==account){
+        console.log('You are owner');
+        setRole('owner');
+      }
+      else{
+        const info=await supplychain.methods.getUserInfo(account).call();
+        console.log(info);
+        if(info.role==1){
+          setRole('manufacturer');
+        }
+        else if(info.role==2){
+          setRole('wholesaler');
+        }
+        else if(info.role==3){
+          setRole('distributer');
+        }
+        else if(info.role==4){
+          setRole('pharma');
+        }
+        else if(info.role==5){
+          setRole('transporter');
+        }
+      }
+    }
+  }
 
   return (
     <div>
@@ -32,8 +75,13 @@ export default function index() {
           </div>
           <ul className="menu">
             <li>
-              <a href="#home" className="menu-btn">
-                Talk to an expert
+              <a className="menu-btn" onClick={getAddress}>
+                Connect to MetaMask
+              </a>
+            </li>
+            <li>
+              <a href={`/${encodeURIComponent(role)}`} className="menu-btn">
+                Go to site
               </a>
             </li>
           </ul>
