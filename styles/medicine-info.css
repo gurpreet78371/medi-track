@@ -5,7 +5,7 @@
 } */
 .medicine {
   display: flex;
-  padding: 20px;
+  padding: 20px 10%;
   flex-direction: column;
   padding-top: 130px;
   height: fit-content;
@@ -25,6 +25,8 @@
 }
 .medicine .medicine-info .left {
   text-align: left;
+  color: black;
+  font-weight: 400;
 }
 .medicine .medicine-info .right {
   display: flex;
@@ -49,4 +51,143 @@
 }
 .history {
   flex: 1;
+  display: flex;
+}
+.history .left {
+  flex: 1;
+}
+.history .right {
+  flex: 1;
+  padding-top: 50px;
+}
+.history .right img {
+  width: 600px;
+  height: 600px;
+  object-fit: cover;
+}
+/* history section starts */
+.experience .experience-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.experience .max-width {
+  max-width: 80%;
+}
+.experience .experience-content .card {
+  width: 80%;
+  position: relative;
+  border-radius: 6px;
+  padding: 25px 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  margin-left: 10%;
+}
+.experience .achievements {
+  padding-left: 25px;
+  margin-bottom: 20px;
+}
+.experience .outer {
+  position: relative;
+  width: 100%;
+  border-left: 6px solid white;
+}
+.experience .outer .circle {
+  border-radius: 50%;
+  position: absolute;
+  text-align: center;
+  padding: 8px 0;
+  left: -23px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  background: crimson;
+}
+.experience .outer .square {
+  position: absolute;
+  text-align: center;
+  left: -10px;
+  top: 15px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: rotate(45deg);
+}
+.experience .outer .experience-level {
+  font-size: larger;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+.experience .outer .company {
+  padding-bottom: 20px;
+}
+.italic {
+  font-style: italic;
+  font-weight: 700;
+  font-size: smaller;
+}
+.grade {
+  float: right;
+}
+
+.date {
+  text-align: left;
+}
+.experience .date {
+  padding-top: 6px;
+  float: right;
+}
+.experience .experience-level {
+  display: inline-block;
+  text-align: left;
+}
+
+/* responsive media query start */
+@media (max-width: 1104px) {
+  .menu-btn {
+    display: block;
+    z-index: 999;
+  }
+  .menu-btn i.active:before {
+    content: "\f00d";
+  }
+  .navbar .menu {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    background: #111;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+  }
+  .navbar .menu.active {
+    left: 0;
+  }
+  .navbar .menu li {
+    display: block;
+  }
+  .navbar .menu li a {
+    display: inline-block;
+    margin: 20px 0;
+    font-size: 25px;
+  }
+  .experience .date {
+    padding-top: 3px;
+    float: right;
+  }
+  .experience .experience-level {
+    display: block;
+  }
+}
+@media (max-width: 690px) {
+  .experience .experience-content .card {
+    width: 100%;
+  }
 }
