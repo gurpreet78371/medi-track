@@ -13,8 +13,8 @@ export default function register() {
     location: "",
   });
   const links = [
+    { name: "Users", address: "/owner", active: false },
     { name: "Register", address: "#", active: true },
-    { name: "User", address: "/owner", active: false },
   ];
   useEffect(async () => {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
@@ -30,6 +30,7 @@ export default function register() {
   const registerUser = async (event) => {
     event.preventDefault();
     console.log(formvalues);
+    console.log("Registering...");
     await supplychain.methods
       .registerUser(
         formvalues.address,
@@ -40,15 +41,7 @@ export default function register() {
       .send({
         from: address,
       });
-  };
-  const getUsers = async () => {
-    const users = await supplychain.methods.getUsers().call();
-    console.log(users);
-    getUserInfo(users[0]);
-  };
-  const getUserInfo = async (address) => {
-    const user = await supplychain.methods.getUserInfo(address).call();
-    console.log(user);
+    console.log("Finished!!!");
   };
   return (
     <div className="register">

@@ -6,6 +6,7 @@ import web3 from "../../ethereum/web3";
 
 export default function register() {
   const [address, setAddress] = useState("");
+  const [loading,setLoading]=useState(false);
   const [formvalues, setformvalues] = useState({
     name: "",
     quantity: "",
@@ -22,7 +23,7 @@ export default function register() {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
     const account = web3.utils.toChecksumAddress(accounts[0]);
     const info = await supplychain.methods.getUserInfo(account).call();
-    if (info.role != 2) {
+    if (info.role != 1) {
       console.log("You are not manufacturer!!!");
     } else {
       console.log("You are manufacturer!!!");
@@ -32,17 +33,19 @@ export default function register() {
   const manufacture = async (event) => {
     event.preventDefault();
     console.log(formvalues);
-    // await supplychain.methods
-    //     .manufactureMedicine(
-    //         formvalues.name,
-    //         parseInt(formvalues.quantity),
-    //         formvalues.shipper,
-    //         formvalues.receiver,
-    //         formvalues.expiry
-    //     )
-    //     .send({
-    //         from: account,
-    //     });
+    setLoading(true);
+    await supplychain.methods
+        .manufactureMedicine(
+            formvalues.name,
+            parseInt(formvalues.quantity),
+            formvalues.shipper,
+            formvalues.receiver,
+            formvalues.expiry
+        )
+        .send({
+            from: address,
+        });
+    setLoading(false);
   };
   return (
     <div className="register">
@@ -127,9 +130,9 @@ export default function register() {
             required
           />
           <div className="clearfix">
-            <button type="submit" className="btn">
-              Create
-            </button>
+            
+              {loading==true?<button type="submit" className="btn"><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Processing...</button>:<button type="submit" className="btn">Create</button>}
           </div>
         </div>
       </form>

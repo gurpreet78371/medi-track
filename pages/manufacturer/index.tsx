@@ -6,8 +6,8 @@ import Medicine from "../../ethereum/medicine";
 import web3 from "../../ethereum/web3";
 
 const links = [
-  { name: "Batches", address: "/manufacturer", active: true },
-  { name: "Create", address: "#", active: false },
+  { name: "Batches", address: "#", active: true },
+  { name: "Create", address: "/manufacturer/create", active: false },
 ];
 
 export default function batchList() {

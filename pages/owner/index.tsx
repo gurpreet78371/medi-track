@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 
 const links = [
+  { name: "Users", address: "#", active: true },
   { name: "Register", address: "/owner/register", active: false },
-  { name: "User", address: "#", active: true },
 ];
 
 export default function userList({ usersInfo }) {
