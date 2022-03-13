@@ -31,11 +31,7 @@ export default function register() {
   }, []);
   const manufacture = async (event) => {
     event.preventDefault();
-    console.log(formvalues.name);
-    console.log(formvalues.quantity);
-    console.log(formvalues.shipper);
-    console.log(formvalues.receiver);
-    console.log(formvalues.expiry);
+    console.log(formvalues);
     // await supplychain.methods
     //     .manufactureMedicine(
     //         formvalues.name,

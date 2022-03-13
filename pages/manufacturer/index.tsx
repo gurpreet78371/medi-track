@@ -13,6 +13,7 @@ const links = [
 export default function batchList() {
   const [address, setAddress] = useState("0x0");
   const [medicines, setMedicines] = useState([]);
+  const [medicinesDisplay, setMedicinesDisplay] = useState([]);
 
   useEffect(async () => {
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
@@ -26,24 +27,38 @@ export default function batchList() {
       console.log("You are manufacturer");
       setAddress(account);
       const meds = await supplychain.methods.getMedicinesMan(account).call();
-      let medInfo = [];
+      console.log(meds);
+      let medsInfo = [];
       for (let med in meds) {
-        console.log(med);
+        const medicine = Medicine(meds[med]);
+        const info = await medicine.methods.getInfo().call();
+        console.log(info);
+        medsInfo.push({ ...info, address: meds[med] });
       }
-      setMedicines(meds);
+      setMedicines(medsInfo);
+      setMedicinesDisplay(medsInfo);
     }
   }, []);
 
-  async function getMedicines() {
-    const med = await supplychain.methods.getMedicinesMan(address).call();
-    console.log(med);
-  }
-
-  async function getMedicineInfo(batchAddress) {
-    const medicine = Medicine(batchAddress);
-    const info = await medicine.methods.getInfo().call();
-    console.log(info);
-  }
+  const filterMedicines = (e) => {
+    console.log(e.target.value);
+    if (e.target.value == "All") {
+      setMedicinesDisplay(medicines);
+    } else {
+      let meds = [];
+      for (let med in medicines) {
+        if (e.target.value == "Shipped" && medicines[med].status != 0) {
+          meds.push(medicines[med]);
+        } else if (
+          e.target.value == "NotShipped" &&
+          medicines[med].status == 0
+        ) {
+          meds.push(medicines[med]);
+        }
+      }
+      setMedicinesDisplay(meds);
+    }
+  };
   return (
     <div className="body">
       <NavBar links={links} />
@@ -55,13 +70,10 @@ export default function batchList() {
                 <label htmlFor="filter" className="filter-label">
                   Filter:
                 </label>
-                <select name="filter" id="filter" onChange={getMedicines}>
-                  <option value="All">All Users</option>
-                  <option value="Manufacturer">Manufacturer</option>
-                  <option value="Wholesaler">Wholesaler</option>
-                  <option value="Distributer">Distributer</option>
-                  <option value="Pharma">Pharma</option>
-                  <option value="Transporter">Transporter</option>
+                <select name="filter" id="filter" onChange={filterMedicines}>
+                  <option value="All">All Medicines</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="NotShipped">Not Shipped</option>
                 </select>
               </div>
             </div>
@@ -70,30 +82,34 @@ export default function batchList() {
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">Name</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Location</th>
-                  <th scope="col">Role</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
-                {/* {userData.map((userobj, index) => {
+                {medicinesDisplay.map((med, index) => {
                   return (
                     <>
                       <tr className="spacer">
                         <td colSpan={100}></td>
                       </tr>
-                      <tr key={userobj.ethAddress}>
+                      <tr key={med.address}>
                         <td>{index + 1}</td>
                         <td>
-                          <a href="#">{userobj.name}</a>
+                          <a href="#">{med.name}</a>
                         </td>
-                        <td>{userobj.ethAddress}</td>
-                        <td>{userobj.location}</td>
-                        <td>{userobj.role}</td>
+                        <td>{med.quantity}</td>
+                        {med.condition == 0 ? <td>Fresh</td> : <td>Damaged</td>}
+                        {med.status == 0 ? (
+                          <td>Not Shipped</td>
+                        ) : (
+                          <td>Shipped</td>
+                        )}
                       </tr>
                     </>
                   );
-                })} */}
+                })}
               </tbody>
             </table>
             {/* {userData.length == 0 ? <p>No User Available</p> : <p></p>} */}
