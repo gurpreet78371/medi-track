@@ -14,13 +14,13 @@ export default function NavBar(props) {
       <nav
         className={
           scroll
-            ? "navbar sticky navbar-light bg-white"
-            : "navbar navbar-light bg-white"
+            ? "navbar sticky navbar-light bg-white shadow-sm"
+            : "navbar navbar-light bg-white shadow-sm"
         }
       >
         <div className="max-width">
           <div className="logo">
-            <a href="#">MediTrack</a>
+            <a href="/">MediTrack</a>
           </div>
           <ul className="menu">
             {props.links.map((link) => {

@@ -2,28 +2,49 @@ import React from "react";
 import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
+import Medicine from "../../ethereum/medicine";
+import web3 from "../../ethereum/web3";
 
 const links = [
   { name: "Register", address: "/owner/register", active: false },
   { name: "User", address: "#", active: true },
 ];
 
-export default function userList({ usersInfo }) {
-  const [userData, setUserData] = useState(usersInfo);
-  const getData = (e) => {
-    console.log(e.target.value);
-    if (e.target.value == "All") {
-      setUserData(usersInfo);
-    } else {
-      let data = [];
-      for (let user in usersInfo) {
-        if (usersInfo[user].role == e.target.value) {
-          data.push(usersInfo[user]);
+export default function batchList() {
+    const [address,setAddress]=useState('0x0');
+    const [medicines,setMedicines]=useState([]);
+
+    useEffect(async ()=>{
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = web3.utils.toChecksumAddress(accounts[0]);
+        const info=await supplychain.methods.getUserInfo(account).call();
+        console.log(info);
+        console.log(account);
+        if(info.role!=1){
+            console.log("You are not a manufacturer");
         }
-      }
-      setUserData(data);
+        else{
+            console.log("You are manufacturer");
+            setAddress(account);
+            const meds=await supplychain.methods.getMedicinesMan(account).call();
+            let medInfo=[];
+            for (let med in meds){
+                console.log(med);
+            }
+            setMedicines(meds);
+        }
+    },[])
+
+    async function getMedicines(){
+        const med=await supplychain.methods.getMedicinesMan(address).call();
+        console.log(med);
     }
-  };
+
+    async function getMedicineInfo(batchAddress){
+        const medicine= Medicine(batchAddress);
+        const info=await medicine.methods.getInfo().call();
+        console.log(info);
+    }
   return (
     <div className="body">
       <NavBar links={links}/>
@@ -35,7 +56,7 @@ export default function userList({ usersInfo }) {
                 <label htmlFor="filter" className="filter-label">
                   Filter:
                 </label>
-                <select name="filter" id="filter" onChange={getData}>
+                <select name="filter" id="filter" onChange={getMedicines}>
                   <option value="All">All Users</option>
                   <option value="Manufacturer">Manufacturer</option>
                   <option value="Wholesaler">Wholesaler</option>
@@ -56,7 +77,7 @@ export default function userList({ usersInfo }) {
                 </tr>
               </thead>
               <tbody>
-                {userData.map((userobj, index) => {
+                {/* {userData.map((userobj, index) => {
                   return (
                     <>
                       <tr className="spacer">
@@ -73,10 +94,10 @@ export default function userList({ usersInfo }) {
                       </tr>
                     </>
                   );
-                })}
+                })} */}
               </tbody>
             </table>
-            {userData.length == 0 ? <p>No User Available</p> : <p></p>}
+            {/* {userData.length == 0 ? <p>No User Available</p> : <p></p>} */}
           </div>
         </div>
       </div>

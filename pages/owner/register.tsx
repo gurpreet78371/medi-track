@@ -71,7 +71,7 @@ export default function register() {
             required
           />
           <label htmlFor="address">
-            <b>Etherium Address</b>
+            <b>Ethereum Address</b>
           </label>
           <input
             type="text"
