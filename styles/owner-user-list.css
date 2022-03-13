@@ -100,10 +100,6 @@ a:hover {
   border-bottom: 3px solid crimson;
   box-sizing: border-box;
 }
-.body .navbar.sticky .menu li a:hover,
-.register .navbar.sticky .menu li a:hover {
-  color: #fff;
-}
 /* menu btn styling */
 .body .menu-btn,
 .register .menu-btn {
