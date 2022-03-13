@@ -59,6 +59,7 @@
 .history .right {
   flex: 1;
   padding-top: 50px;
+  /* margin-left: 600px; */
 }
 .history .right img {
   width: 600px;

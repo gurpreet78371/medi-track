@@ -32,7 +32,7 @@ section {
 }
 .home-navbar.sticky {
   padding: 15px 0;
-  /* background: crimson; */
+  background: crimson;
 }
 .home-navbar .max-width {
   display: flex;
@@ -75,7 +75,7 @@ section {
 /* home section styling */
 .home {
   display: flex;
-  background: url("/banner.jpeg") no-repeat center;
+  background: url("/banner1.jpg") no-repeat center;
   height: 100vh;
   color: #fff;
   min-height: 500px;
@@ -153,7 +153,7 @@ section {
 }
 .learn-more .upper .outer {
   height: 75vh;
-  background: url("/banner.jpeg") no-repeat center;
+  background: url("/medicine.jpeg") no-repeat center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

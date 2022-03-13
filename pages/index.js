@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 export default function index() {
   const [address, setAddress] = useState("");
-  const [loading,setLoading] =useState(false);
+  const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function index() {
           setRole("pharma");
         } else if (info.role == 5) {
           setRole("transporter");
-        } else{
+        } else {
           alert("You are not registered!!!");
         }
         setLoading(false);
@@ -71,19 +71,25 @@ export default function index() {
             <a href="#">MediTrack Blockchain Transparent Supply</a>
           </div>
           <ul className="menu">
-            {address=="" && loading==false? <li>
-              <a className="menu-btn" onClick={getAddress}>
-                Connect to MetaMask
-              </a>
-            </li>:<li></li>}
-            {loading?<li className="menu-btn">
-              Loading...
-            </li>:<li></li>}
-            {address!="" && loading==false?<li>
-              <a href={`/${encodeURIComponent(role)}`} className="menu-btn">
-                Go to site
-              </a>
-            </li>:<li></li>}
+            {address == "" && loading == false ? (
+              <li>
+                <a className="menu-btn" onClick={getAddress}>
+                  Connect to MetaMask
+                </a>
+              </li>
+            ) : (
+              <li></li>
+            )}
+            {loading ? <li className="menu-btn">Loading...</li> : <li></li>}
+            {address != "" && loading == false ? (
+              <li>
+                <a href={`/${encodeURIComponent(role)}`} className="menu-btn">
+                  Go to site
+                </a>
+              </li>
+            ) : (
+              <li></li>
+            )}
           </ul>
           <div className="menu-btn">
             <i className="fas fa-bars" />
@@ -203,7 +209,7 @@ export default function index() {
         </div>
         <div className="lower">
           <div className="left">
-            <img src="/banner.jpeg" alt="" />
+            <img src="/doctor.jpg" alt="" />
           </div>
           <div className="right">
             <div className="info-card">
@@ -256,7 +262,7 @@ export default function index() {
             </div>
           </div>
         </div>
-        </section>
-        </div>
-    );
+      </section>
+    </div>
+  );
 }
