@@ -226,38 +226,37 @@ export default function index() {
             </div>
             <div className="info-card">
               <div className="heading">
-                Establish supply chain integrity with cold chain monitoring
+                Fight fraud and theft with provenance authentication
               </div>
               <p className="content">
-                Identify contamination of high-value temperature-sensitive
-                products like biologics with step-by-step visibility of cold
-                chain sensor data from manufacture to delivery. If temperature
-                incursion occurs, assign financial responsibility and
-                chargebacks where they belong.
+                Ensure that the products on the shelves and in the pharmacy are
+                authentic. Data sharing and visibility into a product’s journey
+                from the production line to the patient make it possible to
+                decrease fraud through an immutable record of events.
               </p>
             </div>
             <div className="info-card">
               <div className="heading">
-                Establish supply chain integrity with cold chain monitoring
+                Drive time and cost out of the supply chain with data and
+                digitization
               </div>
               <p className="content">
-                Identify contamination of high-value temperature-sensitive
-                products like biologics with step-by-step visibility of cold
-                chain sensor data from manufacture to delivery. If temperature
-                incursion occurs, assign financial responsibility and
-                chargebacks where they belong.
+                Analytics can reveal new business opportunities to improve
+                inventory management and increase efficiency while giving early
+                warning to disruptions in ingredient sourcing. Permissioned
+                participants have near real-time visibility into documents that
+                are digitized and stored on the blockchain.
               </p>
             </div>
             <div className="info-card">
               <div className="heading">
-                Establish supply chain integrity with cold chain monitoring
+                Address regulation requirements for drug tracking
               </div>
               <p className="content">
-                Identify contamination of high-value temperature-sensitive
-                products like biologics with step-by-step visibility of cold
-                chain sensor data from manufacture to delivery. If temperature
-                incursion occurs, assign financial responsibility and
-                chargebacks where they belong.
+                Blockchain technology, with its shareable ledger and immutable
+                data, is ideally suited to the task of tracking unique digital
+                IDs assigned to product units and identifying the location of
+                products under recall in seconds, not days.
               </p>
             </div>
           </div>
