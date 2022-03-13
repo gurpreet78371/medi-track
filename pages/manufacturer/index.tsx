@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar";
 import Medicine from "../../ethereum/medicine";
 import web3 from "../../ethereum/web3";
+import Link from "next/link";
 
 const links = [
   { name: "Batches", address: "#", active: true },
@@ -14,8 +15,10 @@ export default function batchList() {
   const [address, setAddress] = useState("0x0");
   const [medicines, setMedicines] = useState([]);
   const [medicinesDisplay, setMedicinesDisplay] = useState([]);
+  const [loading,setLoading]=useState(false);
 
   useEffect(async () => {
+    setLoading(true);
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
     const account = web3.utils.toChecksumAddress(accounts[0]);
     const info = await supplychain.methods.getUserInfo(account).call();
@@ -35,9 +38,11 @@ export default function batchList() {
         console.log(info);
         medsInfo.push({ ...info, address: meds[med] });
       }
+      console.log(medsInfo);
       setMedicines(medsInfo);
       setMedicinesDisplay(medsInfo);
     }
+    setLoading(false);
   }, []);
 
   const filterMedicines = (e) => {
@@ -47,11 +52,13 @@ export default function batchList() {
     } else {
       let meds = [];
       for (let med in medicines) {
-        if (e.target.value == "Shipped" && medicines[med].status != 0) {
+        console.log(med);
+        console.log(medicines[med]);
+        if (e.target.value == "Shipped" && medicines[med][3] != 0) {
           meds.push(medicines[med]);
         } else if (
           e.target.value == "NotShipped" &&
-          medicines[med].status == 0
+          medicines[med][3] == 0
         ) {
           meds.push(medicines[med]);
         }
@@ -97,11 +104,11 @@ export default function batchList() {
                       <tr key={med.address}>
                         <td>{index + 1}</td>
                         <td>
-                          <a href="#">{med.name}</a>
+                          <Link href={`/${med.address}`}><a>{med[0]}</a></Link>
                         </td>
-                        <td>{med.quantity}</td>
-                        {med.condition == 0 ? <td>Fresh</td> : <td>Damaged</td>}
-                        {med.status == 0 ? (
+                        <td>{med[1]}</td>
+                        {med[2] == '0' ? <td>Fresh</td> : <td>Damaged</td>}
+                        {med[3] == '0' ? (
                           <td>Not Shipped</td>
                         ) : (
                           <td>Shipped</td>
@@ -112,44 +119,13 @@ export default function batchList() {
                 })}
               </tbody>
             </table>
-            {/* {userData.length == 0 ? <p>No User Available</p> : <p></p>} */}
+            {loading==true?<div className="d-flex justify-content-center"><div className="spinner-border" role="status">
+  <span className="visually-hidden">Loading...</span>
+</div></div>:<p></p>}
+            {medicinesDisplay.length == 0 && loading==false? <p>No Medicine Available</p> : <p></p>}
           </div>
         </div>
       </div>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const users = await supplychain.methods.getUsers().call();
-  let usersInfo = [];
-  for (let user in users) {
-    const userInfo = await supplychain.methods
-      .getUserInfo(users[parseInt(user)])
-      .call();
-    let rolestr;
-    if (userInfo.role == 1) {
-      rolestr = "Manufacturer";
-    } else if (userInfo.role == 2) {
-      rolestr = "Wholesaler";
-    } else if (userInfo.role == 3) {
-      rolestr = "Distributer";
-    } else if (userInfo.role == 4) {
-      rolestr = "Pharma";
-    } else if (userInfo.role == 5) {
-      rolestr = "Transporter";
-    }
-    let userobj = {
-      name: userInfo.name,
-      location: userInfo.location,
-      ethAddress: userInfo.ethAddress,
-      role: rolestr,
-    };
-    usersInfo.push(userobj);
-  }
-  return {
-    props: {
-      usersInfo,
-    },
-  };
 }
