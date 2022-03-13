@@ -6,48 +6,47 @@ import Medicine from "../../ethereum/medicine";
 import web3 from "../../ethereum/web3";
 
 const links = [
-  { name: "Register", address: "/owner/register", active: false },
-  { name: "User", address: "#", active: true },
+  { name: "Batches", address: "/manufacturer", active: true },
+  { name: "Create", address: "#", active: false },
 ];
 
 export default function batchList() {
-    const [address,setAddress]=useState('0x0');
-    const [medicines,setMedicines]=useState([]);
+  const [address, setAddress] = useState("0x0");
+  const [medicines, setMedicines] = useState([]);
 
-    useEffect(async ()=>{
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = web3.utils.toChecksumAddress(accounts[0]);
-        const info=await supplychain.methods.getUserInfo(account).call();
-        console.log(info);
-        console.log(account);
-        if(info.role!=1){
-            console.log("You are not a manufacturer");
-        }
-        else{
-            console.log("You are manufacturer");
-            setAddress(account);
-            const meds=await supplychain.methods.getMedicinesMan(account).call();
-            let medInfo=[];
-            for (let med in meds){
-                console.log(med);
-            }
-            setMedicines(meds);
-        }
-    },[])
-
-    async function getMedicines(){
-        const med=await supplychain.methods.getMedicinesMan(address).call();
+  useEffect(async () => {
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    const account = web3.utils.toChecksumAddress(accounts[0]);
+    const info = await supplychain.methods.getUserInfo(account).call();
+    console.log(info);
+    console.log(account);
+    if (info.role != 1) {
+      console.log("You are not a manufacturer");
+    } else {
+      console.log("You are manufacturer");
+      setAddress(account);
+      const meds = await supplychain.methods.getMedicinesMan(account).call();
+      let medInfo = [];
+      for (let med in meds) {
         console.log(med);
+      }
+      setMedicines(meds);
     }
+  }, []);
 
-    async function getMedicineInfo(batchAddress){
-        const medicine= Medicine(batchAddress);
-        const info=await medicine.methods.getInfo().call();
-        console.log(info);
-    }
+  async function getMedicines() {
+    const med = await supplychain.methods.getMedicinesMan(address).call();
+    console.log(med);
+  }
+
+  async function getMedicineInfo(batchAddress) {
+    const medicine = Medicine(batchAddress);
+    const info = await medicine.methods.getInfo().call();
+    console.log(info);
+  }
   return (
     <div className="body">
-      <NavBar links={links}/>
+      <NavBar links={links} />
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           <div className="table-responsive custom-table-responsive">

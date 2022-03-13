@@ -30,6 +30,8 @@
 /* Full-width input fields */
 .register input[type="text"],
 .register input[type="password"],
+.register input[type="number"],
+.register input[type="date"],
 .register input[name="phonecode"] {
   width: 100%;
   padding: 15px;

@@ -5,50 +5,49 @@ import { useState, useEffect } from "react";
 import web3 from "../../ethereum/web3";
 
 export default function register() {
-    const [address,setAddress]=useState('');
-    const [formvalues, setformvalues] = useState({
-        name: "",
-        quantity: "",
-        shipper: "",
-        receiver: "",
-        expiry: "",
-    });
-    const links = [
-        { name: "Batches", address: "/manufacturer", active: false },
-        { name: "Create", address: "#", active: true },
-      ];
+  const [address, setAddress] = useState("");
+  const [formvalues, setformvalues] = useState({
+    name: "",
+    quantity: "",
+    shipper: "",
+    receiver: "",
+    expiry: String(new Date()),
+  });
+  const links = [
+    { name: "Batches", address: "/manufacturer", active: false },
+    { name: "Create", address: "#", active: true },
+  ];
 
-    useEffect(async ()=>{
-        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-        const account = web3.utils.toChecksumAddress(accounts[0]);
-        const info=await supplychain.methods.getUserInfo(account).call();
-        if(info.role!=2){
-            console.log('You are not manufacturer!!!');
-        }
-        else{
-            console.log('You are manufacturer!!!');
-            setAddress(account);
-        }
-    })
-    const manufacture = async (event) => {
-        event.preventDefault();
-        console.log(formvalues.name);
-        console.log(formvalues.quantity);
-        console.log(formvalues.shipper);
-        console.log(formvalues.receiver);
-        console.log(formvalues.expiry);
-        // await supplychain.methods
-        //     .manufactureMedicine(
-        //         formvalues.name,
-        //         parseInt(formvalues.quantity),
-        //         formvalues.shipper,
-        //         formvalues.receiver,
-        //         formvalues.expiry
-        //     )
-        //     .send({
-        //         from: account,
-        //     });
-    };
+  useEffect(async () => {
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    const account = web3.utils.toChecksumAddress(accounts[0]);
+    const info = await supplychain.methods.getUserInfo(account).call();
+    if (info.role != 2) {
+      console.log("You are not manufacturer!!!");
+    } else {
+      console.log("You are manufacturer!!!");
+      setAddress(account);
+    }
+  }, []);
+  const manufacture = async (event) => {
+    event.preventDefault();
+    console.log(formvalues.name);
+    console.log(formvalues.quantity);
+    console.log(formvalues.shipper);
+    console.log(formvalues.receiver);
+    console.log(formvalues.expiry);
+    // await supplychain.methods
+    //     .manufactureMedicine(
+    //         formvalues.name,
+    //         parseInt(formvalues.quantity),
+    //         formvalues.shipper,
+    //         formvalues.receiver,
+    //         formvalues.expiry
+    //     )
+    //     .send({
+    //         from: account,
+    //     });
+  };
   return (
     <div className="register">
       <NavBar links={links}></NavBar>
@@ -70,7 +69,7 @@ export default function register() {
             required
           />
           <label htmlFor="quntity">
-            <b>Ethereum Address</b>
+            <b>Quantity</b>
           </label>
           <input
             type="number"
@@ -104,7 +103,7 @@ export default function register() {
             type="text"
             placeholder="Enter Receiver's Ethereum Address"
             name="receiver"
-            value={formvalues.shipper}
+            value={formvalues.receiver}
             onChange={(event) => {
               setformvalues({ ...formvalues, receiver: event.target.value });
             }}
@@ -116,17 +115,24 @@ export default function register() {
             <b>Expiry Date</b>
           </label>
           <input
-            type="datetime-local"
+            type="date"
             name="expiry"
-            value={formvalues.name}
+            value={new Date(Date.parse(formvalues.expiry))
+              .toISOString()
+              .slice(0, 10)}
             onChange={(event) => {
-              setformvalues({ ...formvalues, expiry: event.target.value });
+              console.log(event.target.value);
+              setformvalues({
+                ...formvalues,
+                expiry: String(event.target.value),
+              });
             }}
+            min={new Date().toISOString().slice(0, 10)}
             required
           />
           <div className="clearfix">
             <button type="submit" className="btn">
-              Register
+              Create
             </button>
           </div>
         </div>
