@@ -211,5 +211,6 @@ section {
 
 .inactive {
   cursor: not-allowed;
-  background-color: blue;
+  /* background-color: red; */
+  color: red;
 }

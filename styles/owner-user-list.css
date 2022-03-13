@@ -90,12 +90,15 @@ a:hover {
   font-size: 18px;
   font-weight: 500;
   margin-left: 25px;
+  padding-top: 15px;
   transition: color 0.3s ease;
+  border-bottom: 3px solid white;
 }
 .body .navbar .menu li a:hover,
 .register .navbar .menu li a:hover {
-  color: darkgray;
-  border-bottom: 2px crimson;
+  color: black;
+  border-bottom: 3px solid crimson;
+  box-sizing: border-box;
 }
 .body .navbar.sticky .menu li a:hover,
 .register .navbar.sticky .menu li a:hover {
