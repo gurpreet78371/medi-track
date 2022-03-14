@@ -117,7 +117,6 @@ export default function index() {
       {/* stats section starts */}
       <section className="stats">
         <div className="card">
-          <i className="fas fa-bars" />
           <h1>35B</h1>
           <p>
             USD in total annual cost from products lost to temperature
@@ -128,55 +127,46 @@ export default function index() {
           </p>
         </div>
         <div className="card">
-          <i className="fas fa-bars" />
-          <h1>35B</h1>
+          <h1>28%</h1>
           <p>
-            USD in total annual cost from products lost to temperature
-            deviations in shipping.
+            of pharmaceutical sales are for temperature controlled products.
           </p>
           <p>
             Source: <a href="#">FreightWaves</a>
           </p>
         </div>
         <div className="card">
-          <i className="fas fa-bars" />
-          <h1>35B</h1>
+          <h1>25%</h1>
           <p>
-            USD in total annual cost from products lost to temperature
-            deviations in shipping.
+            of vaccines reach their destination degraded because of incorrect
+            shipping.
           </p>
           <p>
-            Source: <a href="#">FreightWaves</a>
-          </p>
-        </div>
-        <div className="card">
-          <i className="fas fa-bars" />
-          <h1>35B</h1>
-          <p>
-            USD in total annual cost from products lost to temperature
-            deviations in shipping.
-          </p>
-          <p>
-            Source: <a href="#">FreightWaves</a>
+            Source: <a href="#">IATA</a>
           </p>
         </div>
         <div className="card">
-          <i className="fas fa-bars" />
-          <h1>35B</h1>
+          <h1>1750</h1>
+          <p>incidents of pharmaceutical counterfeiting in the U.S. in 2018.</p>
           <p>
-            USD in total annual cost from products lost to temperature
-            deviations in shipping.
-          </p>
-          <p>
-            Source: <a href="#">FreightWaves</a>
+            Source: <a href="#">Stastista</a>
           </p>
         </div>
         <div className="card">
-          <i className="fas fa-bars" />
-          <h1>35B</h1>
+          <h1>3 months</h1>
           <p>
-            USD in total annual cost from products lost to temperature
-            deviations in shipping.
+            of stockpiled helped companies weather the initial period of the
+            coronavirus outbreak.
+          </p>
+          <p>
+            Source: <a href="#">ACP Journals</a>
+          </p>
+        </div>
+        <div className="card">
+          <h1>80%</h1>
+          <p>
+            of active pharmaceutical ingredients and 40% of finished drugs are
+            imported into the U.S.
           </p>
           <p>
             Source: <a href="#">FreightWaves</a>
@@ -226,7 +216,7 @@ export default function index() {
             </div>
             <div className="info-card">
               <div className="heading">
-                Fight fraud and theft with provenance authentication
+                Fight against fraud and theft with provenance authentication
               </div>
               <p className="content">
                 Ensure that the products on the shelves and in the pharmacy are
@@ -259,6 +249,104 @@ export default function index() {
                 products under recall in seconds, not days.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+      {/* footer section starts */}
+      <section className="main-footer">
+        <div className="upper">
+          <div className="upper-left">
+            <h3>
+              Find out how companies are using blockchain to drive end-to-end
+              supply chain efficiency.
+            </h3>
+            <div className="link">
+              <a
+                href="https://event.on24.com/eventRegistration/EventLobbyServletV2?target=lobby20V2.jsp&eventid=2472835&sessionid=1&format=fhvideo1&key=A939971A8D67A34642EFFB54828D60EC&eventuserid=519684908"
+                target="_blank"
+              >
+                Watch: Increasing supply chain efficiency
+              </a>
+            </div>
+          </div>
+          <div className="upper-right">
+            <h3>
+              See how Transparent Supply is building a next-generation supply
+              chain.
+            </h3>
+            <div className="link">
+              <a
+                href="https://www.ibm.com/account/reg/us-en/signup?formid=urx-47335"
+                target="_blank"
+              >
+                Read the brief
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="lower">
+          <div class="footer-dark">
+            <footer>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-6 col-md-3 item">
+                    <h3>Services</h3>
+                    <ul>
+                      <li>
+                        <a href="#">Blockchain based drug supply</a>
+                      </li>
+                      <li>
+                        <a href="#">Tracebility</a>
+                      </li>
+                      <li>
+                        <a href="#">Visibility</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-sm-6 col-md-3 item">
+                    <h3>About</h3>
+                    <ul>
+                      <li>
+                        <a href="#">Company</a>
+                      </li>
+                      <li>
+                        <a href="#">Team</a>
+                      </li>
+                      <li>
+                        <a href="#">Careers</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6 item text">
+                    <h3>Meditrack</h3>
+                    <p>
+                      Amid rising counterfeiting, regulatory changes and a cold
+                      chain logistical test like no other on the horizon–the
+                      worldwide distribution of coronavirus vaccines–the
+                      pharmaceutical industry faces an array of challenges, many
+                      of which lead back to lack of visibility in a complex
+                      global supply chain. By providing transparency and
+                      enabling trust, blockchain technology can help.
+                    </p>
+                  </div>
+                  <div class="col item social">
+                    <a href="#">
+                      <i class="icon ion-social-facebook"></i>
+                    </a>
+                    <a href="#">
+                      <i class="icon ion-social-twitter"></i>
+                    </a>
+                    <a href="#">
+                      <i class="icon ion-social-snapchat"></i>
+                    </a>
+                    <a href="#">
+                      <i class="icon ion-social-instagram"></i>
+                    </a>
+                  </div>
+                </div>
+                <p class="copyright">Company Name © 2022</p>
+              </div>
+            </footer>
           </div>
         </div>
       </section>
