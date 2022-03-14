@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../components/NavBar";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import Medicine from "../ethereum/medicine";
 
 export default function medicine_info() {
+  const [medInfo,setMedInfo]=useState({});
+  const router=useRouter();
+  const batch=router.query.batch;
+  useEffect(async()=>{
+    console.log(router.query);
+    console.log(batch);
+    const medicine= Medicine(batch);
+    const info=await medicine.methods.getInfo().call();
+    // const expiry=await medicine.methods.expiry().call();
+    // setMedInfo({...info,expiry:expiry});
+    setMedInfo(info);
+    console.log(info);
+
+  },[])
   const links = [
     { name: "Register", address: "#", active: true },
     { name: "User", address: "/owner", active: false },
@@ -11,18 +28,18 @@ export default function medicine_info() {
       <div className="nav-box">
         <NavBar links={links} />
       </div>
-
+      
       <div className="medicine">
         <div className="medicine-info">
           <div className="left-half">
-            <h3 className="name">Medicine Name</h3>
+            <h3 className="name">{medInfo[0]}</h3>
             <div className="row1">
               <div className="left">Name: </div>
-              <div className="right">Medicine</div>
+              <div className="right">{medInfo[0]}</div>
             </div>
             <div className="row1">
               <div className="left">Quantity: </div>
-              <div className="right">100</div>
+              <div className="right">{medInfo[1]}</div>
             </div>
             <div className="row1">
               <div className="left">Owner:</div>
@@ -34,7 +51,7 @@ export default function medicine_info() {
             </div>
             <div className="row1">
               <div className="left">Condition:</div>
-              <div className="right">good</div>
+              {medInfo[2]=='0'?<div className="right">Fresh</div>:<div className="right">Damaged</div>}
             </div>
             <div className="row1">
               <div className="left">Current Owner:</div>
@@ -42,11 +59,12 @@ export default function medicine_info() {
             </div>
             <div className="row1">
               <div className="left">Expiry</div>
-              <div className="right">parso ki</div>
+              <div className="right">{medInfo[1]}</div>
             </div>
           </div>
           <div className="right-half">
-            <img src="/qr.jpg" alt="QR code" />
+          <img src={`https://api.qrserver.com/v1/create-qr-code/?data=${batch}&amp;size=100x100`} alt="QR code" title="" />
+            {/* <img src="/qr.jpg" alt="QR code" /> */}
           </div>
         </div>
 
