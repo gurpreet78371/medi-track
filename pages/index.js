@@ -285,11 +285,11 @@ export default function index() {
           </div>
         </div>
         <div className="lower">
-          <div class="footer-dark">
+          <div className="footer-dark">
             <footer>
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-6 col-md-3 item">
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-6 col-md-3 item">
                     <h3>Services</h3>
                     <ul>
                       <li>
@@ -303,7 +303,7 @@ export default function index() {
                       </li>
                     </ul>
                   </div>
-                  <div class="col-sm-6 col-md-3 item">
+                  <div className="col-sm-6 col-md-3 item">
                     <h3>About</h3>
                     <ul>
                       <li>
@@ -317,7 +317,7 @@ export default function index() {
                       </li>
                     </ul>
                   </div>
-                  <div class="col-md-6 item text">
+                  <div className="col-md-6 item text">
                     <h3>Meditrack</h3>
                     <p>
                       Amid rising counterfeiting, regulatory changes and a cold
@@ -329,22 +329,22 @@ export default function index() {
                       enabling trust, blockchain technology can help.
                     </p>
                   </div>
-                  <div class="col item social">
+                  <div className="col item social">
                     <a href="#">
-                      <i class="icon ion-social-facebook"></i>
+                      <i className="icon ion-social-facebook" />
                     </a>
                     <a href="#">
-                      <i class="icon ion-social-twitter"></i>
+                      <i className="icon ion-social-twitter" />
                     </a>
                     <a href="#">
-                      <i class="icon ion-social-snapchat"></i>
+                      <i className="icon ion-social-snapchat" />
                     </a>
                     <a href="#">
-                      <i class="icon ion-social-instagram"></i>
+                      <i className="icon ion-social-instagram" />
                     </a>
                   </div>
                 </div>
-                <p class="copyright">Company Name © 2022</p>
+                <p className="copyright">Company Name © 2022</p>
               </div>
             </footer>
           </div>
