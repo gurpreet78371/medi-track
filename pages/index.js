@@ -344,7 +344,7 @@ export default function index() {
                     </a>
                   </div>
                 </div>
-                <p className="copyright">Company Name © 2022</p>
+                <p className="copyright">Meditrack © 2022</p>
               </div>
             </footer>
           </div>
