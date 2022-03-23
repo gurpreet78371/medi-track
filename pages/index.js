@@ -331,20 +331,20 @@ export default function index() {
                   </div>
                   <div className="col item social">
                     <a href="#">
-                      <i className="icon ion-social-facebook"></i>
+                      <i className="icon ion-social-facebook" />
                     </a>
                     <a href="#">
-                      <i className="icon ion-social-twitter"></i>
+                      <i className="icon ion-social-twitter" />
                     </a>
                     <a href="#">
-                      <i className="icon ion-social-snapchat"></i>
+                      <i className="icon ion-social-snapchat" />
                     </a>
                     <a href="#">
-                      <i className="icon ion-social-instagram"></i>
+                      <i className="icon ion-social-instagram" />
                     </a>
                   </div>
                 </div>
-                <p className="copyright">Company Name © 2022</p>
+                <p className="copyright">Meditrack © 2022</p>
               </div>
             </footer>
           </div>
