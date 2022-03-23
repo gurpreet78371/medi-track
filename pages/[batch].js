@@ -8,6 +8,7 @@ import supplychain from "../ethereum/supplychain";
 export default function medicine_info() {
   const [medInfo,setMedInfo]=useState({});
   const [ownersInfo,setOwnersInfo]=useState([]);
+  const [currentOwner,setCurrentOwner]=useState(0);
   const router=useRouter();
   const batch=router.query.batch;
   useEffect(async()=>{
@@ -17,15 +18,19 @@ export default function medicine_info() {
     const info=await medicine.methods.getInfo().call();
     if(info[3]==0){
       info[3]="At Manufacturer";
+      setCurrentOwner(0);
     }
     else if(info[3]==1){
       info[3]="At Wholesaler";
+      setCurrentOwner(1);
     }
     else if(info[3]==2){
       info[3]="At Distributer";
+      setCurrentOwner(2);
     }
     else if(info[3]==3){
       info[3]="At Pharma";
+      setCurrentOwner(3);
     }
     else if(info[3]==4){
       info[3]="Picked for Manufacturer";
@@ -99,7 +104,7 @@ export default function medicine_info() {
             </div>
             <div className="row1">
               <div className="left">Current Owner</div>
-              {ownersInfo.length!=0?<div className="right">{ownersInfo[0][0]}</div>:<div className="right"></div>}
+              {ownersInfo.length!=0?<div className="right">{ownersInfo[currentOwner][0]}</div>:<div className="right"></div>}
               
             </div>
           </div>

@@ -55,6 +55,7 @@
 }
 .history .left {
   flex: 1;
+  margin: 50px;
 }
 .history .right {
   flex: 1;
