@@ -89,8 +89,6 @@ export default function register() {
             onChange={(event) => {
               setformvalues({ ...formvalues, location: event.target.value });
             }}
-            data-toggle="modal"
-            data-target="#exampleModalLong"
             required
           />
           <label htmlFor="role">
