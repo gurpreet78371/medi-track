@@ -16,7 +16,8 @@ export default function send() {
   const links = [
     { name: "Batches", address: "/distributer", active: false },
     { name: "Receive", address: "/distributer/receive", active: false },
-    { name: "Send", address: "#", active: true}
+    { name: "Send", address: "#", active: true},
+    { name: "Profile", address: "/distributer/profile", active: false}
   ];
 
   useEffect(async () => {

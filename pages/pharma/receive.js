@@ -12,9 +12,9 @@ export default function receive() {
     condition: 0,
   });
   const links = [
-    { name: "Batches", address: "/wholesaler", active: false },
+    { name: "Batches", address: "/pharma", active: false },
     { name: "Receive", address: "#", active: true },
-    { name: "Send", address: "/wholesaler/send", active: false}
+    { name: "Profile", address: "/pharma/profile", active: false },
   ];
 
   useEffect(async () => {

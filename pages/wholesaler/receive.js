@@ -14,7 +14,8 @@ export default function receive() {
   const links = [
     { name: "Batches", address: "/wholesaler", active: false },
     { name: "Receive", address: "#", active: true },
-    { name: "Send", address: "/wholesaler/send", active: false}
+    { name: "Send", address: "/wholesaler/send", active: false},
+    { name: "Profile", address: "/wholesaler/profile", active: false}
   ];
 
   useEffect(async () => {

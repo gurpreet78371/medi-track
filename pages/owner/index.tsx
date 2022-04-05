@@ -2,6 +2,7 @@ import React from "react";
 import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect, useRef } from "react";
 import NavBar from "../../components/NavBar";
+import Link from "next/link";
 import Map, {
     GeolocateControl,
     Marker,
@@ -114,9 +115,9 @@ export default function userList({ usersInfo }) {
                                                     >
                                                         <td>{index + 1}</td>
                                                         <td>
-                                                            <a href="#">
+                                                            <Link href={`/user/${userobj.ethAddress}`}>
                                                                 {userobj.name}
-                                                            </a>
+                                                            </Link>
                                                         </td>
                                                         <td>
                                                             {userobj.ethAddress}

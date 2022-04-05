@@ -17,6 +17,7 @@ export default function register() {
   const links = [
     { name: "Batches", address: "/manufacturer", active: false },
     { name: "Create", address: "#", active: true },
+    { name: "Profile", address: "/manufacturer/profile", active: false },
   ];
 
   useEffect(async () => {

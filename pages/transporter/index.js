@@ -13,8 +13,8 @@ export default function receive() {
     role: 0,
   });
   const links = [
-    { name: "Batches", address: "/transporter", active: false },
-    { name: "Create", address: "#", active: true },
+    { name: "PickUp", address: "#", active: true },
+    { name: "Profile", address: "/transporter/profile", active: false },
   ];
 
   useEffect(async () => {

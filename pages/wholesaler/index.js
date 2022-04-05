@@ -9,7 +9,8 @@ import Link from "next/link";
 const links = [
   { name: "Batches", address: "#", active: true },
   { name: "Receive", address: "/wholesaler/receive", active: false },
-  { name: "Send", address: "/wholesaler/send", active: false}
+  { name: "Send", address: "/wholesaler/send", active: false},
+  { name: "Profile", address: "/wholesaler/profile", active: false}
 ];
 
 export default function batchList() {
