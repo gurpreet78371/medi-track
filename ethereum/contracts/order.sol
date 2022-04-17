@@ -22,29 +22,30 @@ contract Order {
     address payable shipper;
     orderStatus status;
     orderCondition condition;
+    string orderPlacementTime;
+    string orderReceivementTime;
 
     constructor(
         uint256 _price,
         address _sender,
-        address _receiver
-    ){
+        address _receiver,
+        address[] memory _batches,
+        string memory timestamp
+    ) {
         price = _price;
         sender = payable(_sender);
         receiver = _receiver;
+        batches = _batches;
+        orderPlacementTime = timestamp;
         status = orderStatus(0);
         condition = orderCondition.good;
     }
 
-    receive() external payable{}
+    receive() external payable {}
 
-    function addInfo(
-        address[] memory _batches,
-        address _shipper,
-        uint256 senderType
-    ) public {
+    function addInfo(address _shipper, uint256 senderType) public {
         require(status == orderStatus.withSender);
-        require(sender==msg.sender);
-        batches = _batches;
+        require(sender == msg.sender);
         shipper = payable(_shipper);
         for (uint256 i = 0; i < batches.length; i++) {
             Medicine(batches[i]).sendPackage(
@@ -66,7 +67,9 @@ contract Order {
             address,
             address,
             uint256,
-            uint256
+            uint256,
+            string memory,
+            string memory
         )
     {
         return (
@@ -76,7 +79,9 @@ contract Order {
             receiver,
             shipper,
             uint256(status),
-            uint256(condition)
+            uint256(condition),
+            orderPlacementTime,
+            orderReceivementTime
         );
     }
 
@@ -92,7 +97,8 @@ contract Order {
     function receiveOrder(
         address _receiver,
         uint256 _condition,
-        uint256 receiverType
+        uint256 receiverType,
+        string memory timestamp
     ) public {
         require(receiver == _receiver);
         require(status == orderStatus.withShipper);
@@ -101,6 +107,7 @@ contract Order {
             condition = orderCondition(_condition);
         } else {
             status = orderStatus.withReceiver;
+            orderReceivementTime=timestamp;
             for (uint256 i = 0; i < batches.length; i++) {
                 Medicine(batches[i]).receivePackage(
                     _receiver,

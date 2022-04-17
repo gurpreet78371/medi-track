@@ -24,6 +24,7 @@ contract SupplyChain {
         address EthAddress,
         string memory Name,
         string memory Location,
+        uint256 Margin,
         uint256 Role
     ) public {
         require(msg.sender == owner);
@@ -31,6 +32,7 @@ contract SupplyChain {
         UsersDetails[EthAddress].name = Name;
         UsersDetails[EthAddress].location = Location;
         UsersDetails[EthAddress].ethAddress = EthAddress;
+        UsersDetails[EthAddress].margin = Margin;
         UsersDetails[EthAddress].role = roles(Role);
         users.push(EthAddress);
     }
@@ -39,6 +41,7 @@ contract SupplyChain {
         string name;
         string location;
         address ethAddress;
+        uint256 margin;
         roles role;
     }
 
@@ -49,16 +52,18 @@ contract SupplyChain {
         public
         view
         returns (
-            string memory name,
-            string memory location,
-            address ethAddress,
-            roles role
+            string memory,
+            string memory,
+            address,
+            uint256,
+            roles
         )
     {
         return (
             UsersDetails[User].name,
             UsersDetails[User].location,
             UsersDetails[User].ethAddress,
+            UsersDetails[User].margin,
             UsersDetails[User].role
         );
     }
@@ -73,11 +78,12 @@ contract SupplyChain {
         string memory name,
         uint256 quantity,
         string memory expiry,
-        uint256 price
+        uint256 price,
+        string memory timestamp
     ) public {
         require(UsersDetails[msg.sender].role == roles.manufacturer);
         ManufacturedMedicine[msg.sender].push(
-            address(new Medicine(msg.sender, name, quantity, expiry, price))
+            address(new Medicine(msg.sender, name, quantity, expiry, price,timestamp))
         );
     }
 
@@ -111,18 +117,24 @@ contract SupplyChain {
     mapping(address => address[]) ordersPlaced;
     mapping(address => address[]) ordersReceived;
 
-    function placeOrder(uint price,address _sender,address _receiver) public payable {
-        address order=address(new Order(price,_sender,_receiver));
+    function placeOrder(
+        uint256 price,
+        address _sender,
+        address _receiver,
+        address[] memory batches,
+        string memory timestamp
+    ) public payable {
+        address order = address(new Order(price, _sender, _receiver,batches,timestamp));
         payable(order).transfer(msg.value);
         ordersPlaced[_receiver].push(order);
         ordersReceived[_sender].push(order);
     }
 
-    function getOrdersPlaced() public view returns(address[] memory){
+    function getOrdersPlaced() public view returns (address[] memory) {
         return ordersPlaced[msg.sender];
     }
 
-    function getOredrsReceived() public view returns(address[] memory){
+    function getOredrsReceived() public view returns (address[] memory) {
         return ordersReceived[msg.sender];
     }
 }

@@ -12,17 +12,17 @@ import Map, {
 
 export default function userDetail() {
     const [userInfo, setUserInfo] = useState({
-        name: "",
-        location: "",
+        0: "",
+        1: "",
         address: "",
-        ethAddress: "",
+        2: "",
         role: "",
         icon: "",
     });
     const [viewState, setViewState] = useState({
         longitude: 76.78532,
         latitude: 30.76728,
-        zoom: 12,
+        zoom: 14,
     });
     const [showPopup,setShowPopup]=useState(true);
     const router = useRouter();
@@ -34,23 +34,26 @@ export default function userDetail() {
         console.log(ethAddress);
         let info = await supplychain.methods.getUserInfo(ethAddress).call();
         let icon;
-        if (info.role == 1) {
+        if (info[4] == 1) {
             info.role = "Manufacturer";
             icon = "factory-icon";
-        } else if (info.role == 2) {
+        } else if (info[4] == 2) {
             info.role = "Wholesaler";
             icon = "wholesale-icon";
-        } else if (info.role == 1) {
+        } else if (info[4] == 3) {
             info.role = "Distributer";
             icon = "transport-icon3";
-        } else if (info.role == 1) {
+        } else if (info[4] == 4) {
             info.role = "Pharma";
             icon = "pharma-icon2";
+        } else if (info[4] == 5) {
+            info.role = "Transporter";
+            icon = "transport-icon1";
         }
         const res = await fetch(
             `https://api.mapbox.com/geocoding/v5/mapbox.places/${
-                info.location.split(",")[0]
-            },${info.location.split(",")[1]}.json?access_token=${mapboxToken}`
+                info[1].split(",")[0]
+            },${info[1].split(",")[1]}.json?access_token=${mapboxToken}`
         );
         const address = await res.json();
         info.address =
@@ -59,7 +62,7 @@ export default function userDetail() {
                 : "Unknown Place";
         info.icon = icon;
         setUserInfo(info);
-        setViewState({...viewState,longitude: info.location.split(',')[0],latitude: info.location.split(",")[1]});
+        setViewState({...viewState,longitude: info[1].split(',')[0],latitude: info[1].split(",")[1]});
     }, []);
     const links = [];
     return (
@@ -71,10 +74,10 @@ export default function userDetail() {
             <div className="medicine">
                 <div className="medicine-info">
                     <div className="left-half">
-                        <h3 className="name">{userInfo.name}</h3>
+                        <h3 className="name">{userInfo[0]}</h3>
                         <div className="row1">
                             <div className="left">Name: </div>
-                            <div className="right">{userInfo.name}</div>
+                            <div className="right">{userInfo[0]}</div>
                         </div>
                         <div className="row1">
                             <div className="left">Role: </div>
@@ -86,7 +89,7 @@ export default function userDetail() {
                         </div>
                         <div className="row1">
                             <div className="left">Ethereum Address: </div>
-                            <div className="right">{userInfo.ethAddress}</div>
+                            <div className="right">{userInfo[2]}</div>
                         </div>
                         <div className="m-5"></div>
                         <div className="m-2"></div>
@@ -111,11 +114,11 @@ export default function userDetail() {
                         mapStyle="mapbox://styles/mapbox/streets-v11"
                         mapboxAccessToken={mapboxToken}
                     >
-                        {userInfo.location.length != 0 ? (
+                        {userInfo[1].length != 0 ? (
                             <Marker
-                                key={userInfo.ethAddress}
-                                longitude={userInfo.location.split(",")[0]}
-                                latitude={userInfo.location.split(",")[1]}
+                                key={userInfo[2]}
+                                longitude={userInfo[1].split(",")[0]}
+                                latitude={userInfo[1].split(",")[1]}
                             >
                                 <img
                                     src={`/${userInfo.icon}.png`}
@@ -128,10 +131,10 @@ export default function userDetail() {
                             </Marker>
                         ) : null}
 
-                        {userInfo.location.length != 0 && showPopup ? (
+                        {userInfo[1].length != 0 && showPopup ? (
                             <Popup
-                                longitude={userInfo.location.split(",")[0]}
-                                latitude={userInfo.location.split(",")[1]}
+                                longitude={userInfo[1].split(",")[0]}
+                                latitude={userInfo[1].split(",")[1]}
                                 closeOnClick={false}
                                 onClose={(e)=>{
                                     setShowPopup(false);
@@ -139,7 +142,7 @@ export default function userDetail() {
                                 focusAfterOpen={false}
                             >
                                 <div>
-                                    <h2>{userInfo.name}</h2>
+                                    <h2>{userInfo[0]}</h2>
                                     <h6>{userInfo.role}</h6>
                                     <p>{userInfo.address}</p>
                                 </div>

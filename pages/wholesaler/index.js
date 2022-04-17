@@ -26,7 +26,7 @@ export default function batchList() {
     const info = await supplychain.methods.getUserInfo(account).call();
     console.log(info);
     console.log(account);
-    if (info.role != 2) {
+    if (info[4] != '2') {
       console.log("You are not a wholesaler");
     } else {
       console.log("You are wholesaler");

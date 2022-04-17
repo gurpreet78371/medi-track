@@ -21,13 +21,15 @@ contract Medicine {
     address currentOwner;
     string expiry;
     uint256 price;
+    string timestamp;
 
     constructor(
         address _manufacturer,
         string memory _name,
         uint256 _quantity,
         string memory _expiry,
-        uint256 _price
+        uint256 _price,
+        string memory _timestamp
     ) {
         owners[0] = _manufacturer;
         currentOwner = _manufacturer;
@@ -35,6 +37,7 @@ contract Medicine {
         quantity = _quantity;
         expiry = _expiry;
         price = _price;
+        timestamp = _timestamp;
         status = medicineStatus(0);
     }
 
@@ -47,10 +50,21 @@ contract Medicine {
             uint256,
             address[4] memory,
             string memory,
-            address
+            address,
+            uint256,
+            string memory
         )
     {
-        return (name, quantity, uint256(status), owners, expiry, currentOwner);
+        return (
+            name,
+            quantity,
+            uint256(status),
+            owners,
+            expiry,
+            currentOwner,
+            price,
+            timestamp
+        );
     }
 
     function pickPackage(address _shipper, uint256 senderType) public {

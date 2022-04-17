@@ -3,7 +3,7 @@ import SupplyChain from './build/SupplyChain.json';
 
 const instance= new web3.eth.Contract(
     SupplyChain.abi,
-    '0x395967e03643C41336dde4B92c305754A7829C8f'
+    '0xcFbF4ac013Fa5609C9348BF614C17431d3688a12'
 );
 
 export default instance;

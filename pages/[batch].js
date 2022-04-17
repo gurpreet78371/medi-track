@@ -30,58 +30,58 @@ export default function medicine_info() {
         console.log(batch);
         const medicine = Medicine(batch);
         const info = await medicine.methods.getInfo().call();
-        if (info[3] == 0) {
-            info[3] = "At Manufacturer";
+        if (info[2] == 0) {
+            info[2] = "At Manufacturer";
             setCurrentOwner(0);
-        } else if (info[3] == 1) {
-            info[3] = "At Wholesaler";
+        } else if (info[2] == 1) {
+            info[2] = "At Wholesaler";
             setCurrentOwner(1);
-        } else if (info[3] == 2) {
-            info[3] = "At Distributer";
+        } else if (info[2] == 2) {
+            info[2] = "At Distributer";
             setCurrentOwner(2);
-        } else if (info[3] == 3) {
-            info[3] = "At Pharma";
+        } else if (info[2] == 3) {
+            info[2] = "At Pharma";
             setCurrentOwner(3);
-        } else if (info[3] == 4) {
-            info[3] = "Picked for Manufacturer";
-        } else if (info[3] == 5) {
-            info[3] = "Picked for Wholesaler";
-        } else if (info[3] == 6) {
-            info[3] = "Picked for Distributer";
-        } else if (info[3] == 7) {
-            info[3] = "Picked for Pharma";
+        } else if (info[2] == 4) {
+            info[2] = "Picked for Manufacturer";
+        } else if (info[2] == 5) {
+            info[2] = "Picked for Wholesaler";
+        } else if (info[2] == 6) {
+            info[2] = "Picked for Distributer";
+        } else if (info[2] == 7) {
+            info[2] = "Picked for Pharma";
         }
         // const expiry=await medicine.methods.expiry().call();
         // setMedInfo({...info,expiry:expiry});
         setMedInfo(info);
         console.log(info);
         let owners = [];
-        for (let owner in info[4]) {
+        for (let owner in info[3]) {
             if (
-                info[4][owner] != "0x0000000000000000000000000000000000000000"
+                info[3][owner] != "0x0000000000000000000000000000000000000000"
             ) {
                 let ownerInfo = await supplychain.methods
-                    .getUserInfo(info[4][owner])
+                    .getUserInfo(info[3][owner])
                     .call();
                 let icon;
-                if (ownerInfo.role == 1) {
-                    ownerInfo.role = "Manufacturer";
+                if (ownerInfo[4] == 1) {
+                    ownerInfo[4] = "Manufacturer";
                     icon = "factory-icon";
-                } else if (ownerInfo.role == 2) {
-                    ownerInfo.role = "Wholesaler";
+                } else if (ownerInfo[4] == 2) {
+                    ownerInfo[4] = "Wholesaler";
                     icon = "wholesale-icon";
-                } else if (ownerInfo.role == 1) {
-                    ownerInfo.role = "Distributer";
+                } else if (ownerInfo[4] == 1) {
+                    ownerInfo[4] = "Distributer";
                     icon = "transport-icon3";
-                } else if (ownerInfo.role == 1) {
-                    ownerInfo.role = "Pharma";
+                } else if (ownerInfo[4] == 1) {
+                    ownerInfo[4] = "Pharma";
                     icon = "pharma-icon2";
                 }
                 const res = await fetch(
                     `https://api.mapbox.com/geocoding/v5/mapbox.places/${
-                        ownerInfo.location.split(",")[0]
+                        ownerInfo[1].split(",")[0]
                     },${
-                        ownerInfo.location.split(",")[1]
+                        ownerInfo[1].split(",")[1]
                     }.json?access_token=${mapboxToken}`
                 );
                 const address = await res.json();
@@ -116,20 +116,16 @@ export default function medicine_info() {
                             <div className="right">{medInfo[1]}</div>
                         </div>
                         <div className="row1">
-                            <div className="left">Status</div>
-                            <div className="right">{medInfo[3]}</div>
+                            <div className="left">Status:</div>
+                            <div className="right">{medInfo[2]}</div>
                         </div>
                         <div className="row1">
-                            <div className="left">Condition:</div>
-                            {medInfo[2] == "0" ? (
-                                <div className="right">Fresh</div>
-                            ) : (
-                                <div className="right">Damaged</div>
-                            )}
+                            <div className="left">Price (in Wei):</div>
+                            <div className="right">{medInfo[6]}</div>
                         </div>
                         <div className="row1">
                             <div className="left">Expiry</div>
-                            <div className="right">26-11-2024</div>
+                            <div className="right">{medInfo[4]}</div>
                         </div>
                         <div className="row1">
                             <div className="left">Current Owner</div>
@@ -163,15 +159,15 @@ export default function medicine_info() {
                                         return (
                                             <div
                                                 className="outer"
-                                                key={owner.ethAddress}
+                                                key={owner[2]}
                                             >
                                                 <div className="card">
                                                     <div className="experience-details">
                                                         <div className="experience-level">
-                                                            {owner.name}
+                                                            {owner[0]}
                                                         </div>
                                                         <div className="date italic">
-                                                            {owner.role}
+                                                            {owner[4]}
                                                         </div>
                                                         <div className="company">
                                                             {owner.address}
@@ -198,10 +194,10 @@ export default function medicine_info() {
                             mapboxAccessToken={mapboxToken}
                         >
                             {ownersInfo.map((userobj) => {
-                                const coordinates = userobj.location.split(",");
+                                const coordinates = userobj[1].split(",");
                                 return (
                                     <Marker
-                                        key={userobj.ethAddress}
+                                        key={userobj[2]}
                                         longitude={coordinates[0]}
                                         latitude={coordinates[1]}
                                     >
@@ -222,10 +218,10 @@ export default function medicine_info() {
                             {selectedUser ? (
                                 <Popup
                                     longitude={
-                                        selectedUser.location.split(",")[0]
+                                        selectedUser[1].split(",")[0]
                                     }
                                     latitude={
-                                        selectedUser.location.split(",")[1]
+                                        selectedUser[1].split(",")[1]
                                     }
                                     closeOnClick={false}
                                     onClose={() => {
@@ -234,8 +230,8 @@ export default function medicine_info() {
                                     focusAfterOpen={false}
                                 >
                                     <div>
-                                        <h2>{selectedUser.name}</h2>
-                                        <h6>{selectedUser.role}</h6>
+                                        <h2>{selectedUser[0]}</h2>
+                                        <h6>{selectedUser[4]}</h6>
                                         <p>{selectedUser.address}</p>
                                     </div>
                                 </Popup>
