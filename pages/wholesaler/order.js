@@ -62,34 +62,7 @@ export default function userList({ usersInfo }) {
                                     <div>Switch to Table View</div>
                                 )}
                             </button>
-                            <div className="filter">
-                                <label
-                                    htmlFor="filter"
-                                    className="filter-label"
-                                >
-                                    Filter:
-                                </label>
-                                <select
-                                    name="filter"
-                                    id="filter"
-                                    onChange={getData}
-                                >
-                                    <option value="All">All Users</option>
-                                    <option value="Manufacturer">
-                                        Manufacturer
-                                    </option>
-                                    <option value="Wholesaler">
-                                        Wholesaler
-                                    </option>
-                                    <option value="Distributer">
-                                        Distributer
-                                    </option>
-                                    <option value="Pharma">Pharma</option>
-                                    <option value="Transporter">
-                                        Transporter
-                                    </option>
-                                </select>
-                            </div>
+                            
                         </div>
                         {mode == 0 ? (
                             <div className="mt-3">
@@ -115,7 +88,7 @@ export default function userList({ usersInfo }) {
                                                     >
                                                         <td>{index + 1}</td>
                                                         <td>
-                                                            <Link href={`/user/${userobj.ethAddress}`}>
+                                                            <Link href={`/wholesaler/${userobj.ethAddress}`}>
                                                                 {userobj.name}
                                                             </Link>
                                                         </td>
@@ -188,6 +161,7 @@ export default function userList({ usersInfo }) {
                                             <h2>{selectedUser.name}</h2>
                                             <h6>{selectedUser.role}</h6>
                                             <p>{selectedUser.address}</p>
+                                            <button className="bg-red-500 text-white p-2 rounded"><Link href={`/wholesaler/${selectedUser.ethAddress}`}>Order</Link></button>
                                         </div>
                                     </Popup>
                                 ) : null}
@@ -215,18 +189,9 @@ export async function getStaticProps() {
         if (userInfo[4] == 1) {
             rolestr = "Manufacturer";
             icon = "factory-icon";
-        } else if (userInfo[4] == 2) {
-            rolestr = "Wholesaler";
-            icon = "wholesale-icon";
-        } else if (userInfo[4] == 3) {
-            rolestr = "Distributer";
-            icon = "transport-icon3";
-        } else if (userInfo[4] == 4) {
-            rolestr = "Pharma";
-            icon = "pharma-icon2";
-        } else if (userInfo[4] == 5) {
-            rolestr = "Transporter";
-            icon = "transport-icon1";
+        } 
+        else{
+            continue;
         }
         const res = await fetch(
             `https://api.mapbox.com/geocoding/v5/mapbox.places/${

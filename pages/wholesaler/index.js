@@ -8,9 +8,9 @@ import Link from "next/link";
 
 const links = [
   { name: "Batches", address: "#", active: true },
-  { name: "Receive", address: "/distributer/receive", active: false },
-  { name: "Send", address: "/distributer/send", active: false},
-  { name: "Profile", address: "/distributer/profile", active: false}
+  { name: "Receive", address: "/wholesaler/receive", active: false },
+  { name: "Send", address: "/wholesaler/send", active: false},
+  { name: "Profile", address: "/wholesaler/profile", active: false}
 ];
 
 export default function batchList() {
@@ -26,12 +26,12 @@ export default function batchList() {
     const info = await supplychain.methods.getUserInfo(account).call();
     console.log(info);
     console.log(account);
-    if (info.role != 3) {
-      console.log("You are not a distributer!!!");
+    if (info[4] != '2') {
+      console.log("You are not a wholesaler");
     } else {
-      console.log("You are distributer!!!");
+      console.log("You are wholesaler");
       setAddress(account);
-      const meds = await supplychain.methods.getMedicines(2).call({from: account});
+      const meds = await supplychain.methods.getMedicines(1).call({from: account});
       console.log(meds);
       let medsInfo = [];
       for (let med in meds) {

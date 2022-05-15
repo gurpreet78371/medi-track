@@ -209,7 +209,7 @@ html {
 
 .inactive {
   cursor: default !important;
-  border: none !important;
+  border-bottom: 3px solid crimson !important;
   pointer-events: none;
   color: black !important;
 }

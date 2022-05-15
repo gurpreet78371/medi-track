@@ -60,8 +60,8 @@
 }
 
 /* Set a style for all buttons */
-.register button {
-  background-color: #0eb7f4;
+.register .btn {
+  background-color: rgb(239 68 68);
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -74,7 +74,7 @@
   border-radius: 10px;
 }
 
-.register button:hover {
+.register .btn:hover {
   opacity: 1;
 }
 

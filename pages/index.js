@@ -39,15 +39,15 @@ export default function index() {
       } else {
         const info = await supplychain.methods.getUserInfo(account).call();
         console.log(info);
-        if (info.role == 1) {
+        if (info[4] == 1) {
           setRole("manufacturer");
-        } else if (info.role == 2) {
+        } else if (info[4] == 2) {
           setRole("wholesaler");
-        } else if (info.role == 3) {
+        } else if (info[4] == 3) {
           setRole("distributer");
-        } else if (info.role == 4) {
+        } else if (info[4] == 4) {
           setRole("pharma");
-        } else if (info.role == 5) {
+        } else if (info[4] == 5) {
           setRole("transporter");
         } else {
           alert("You are not registered!!!");
