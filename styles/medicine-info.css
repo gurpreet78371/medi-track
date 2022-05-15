@@ -8,7 +8,7 @@
   padding: 20px 10%;
   flex-direction: column;
   padding-top: 130px;
-  height: fit-content;
+  min-height: 100vh;
 }
 .medicine-info {
   display: flex;

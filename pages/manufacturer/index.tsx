@@ -5,11 +5,13 @@ import NavBar from "../../components/NavBar";
 import Medicine from "../../ethereum/medicine";
 import web3 from "../../ethereum/web3";
 import Link from "next/link";
+import Head from "next/head";
 
 const links = [
+    { name: "Dashboard", address: "/manufacturer/dashboard", active: false },
     { name: "Batches", address: "#", active: true },
     { name: "Orders", address: "/manufacturer/orders", active: false },
-    { name: "Create", address: "/manufacturer/create", active: false },
+    { name: "Add Batch", address: "/manufacturer/create", active: false },
     { name: "Profile", address: "/manufacturer/profile", active: false },
 ];
 
@@ -74,6 +76,9 @@ export default function batchList() {
     };
     return (
         <div className="body">
+            <Head>
+                <title>Batches</title>
+            </Head>
             <NavBar links={links} />
             <div className="content">
                 <div className="container" style={{ maxWidth: "80%" }}>
@@ -105,7 +110,7 @@ export default function batchList() {
                                     <th scope="col">S.No.</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Quantity</th>
-                                    <th scope="col">Price (in Wei)</th>
+                                    <th scope="col">Price (in Eth)</th>
                                     <th scope="col">Status</th>
                                 </tr>
                             </thead>
@@ -126,7 +131,7 @@ export default function batchList() {
                                                     </Link>
                                                 </td>
                                                 <td>{med[1]}</td>
-                                                <td>{med[6]}</td>
+                                                <td>{med[6]/1000000000000}</td>
                                                 {med[2] == "0" ? (
                                                     <td className="text-red-500">Not Shipped</td>
                                                 ) : (

@@ -6,9 +6,12 @@ import NavBar from "../../components/NavBar";
 import Medicine from "../../ethereum/medicine";
 import web3 from "../../ethereum/web3";
 import Link from "next/link";
+import Head from "next/head";
 
 const links = [
-  { name: "Batches", address: "#", active: true },
+  { name: "Batches", address: "/wholesaler/", active: false },
+  { name: "Order", address: "#", active: true },
+  { name: "Orders", address: "/wholesaler/orders", active: false },
   { name: "Receive", address: "/wholesaler/receive", active: false },
   { name: "Send", address: "/wholesaler/send", active: false },
   { name: "Profile", address: "/wholesaler/profile", active: false },
@@ -48,7 +51,7 @@ export default function batchList() {
       for (let med in meds) {
         const medicine = Medicine(meds[med]);
         const info = await medicine.methods.getInfo().call();
-        if (info[2] != 0) {
+        if (info[2] != 0 || info[3][1]!="0x0000000000000000000000000000000000000000") {
           continue;
         }
         info[6] = parseInt(info[6]);
@@ -90,6 +93,9 @@ export default function batchList() {
   return (
     <div className="body">
       <NavBar links={links} />
+      <Head>
+        <title>Make Order</title>
+      </Head>
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           {checkOut ? (
@@ -211,7 +217,7 @@ export default function batchList() {
                           <td>{med[1]}</td>
                           <td>{med[6] / 1000000000000}</td>
                           <td>
-                            {selected.length == 1 ? (
+                            {selected.indexOf(med.address) != -1 ? (
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="16"

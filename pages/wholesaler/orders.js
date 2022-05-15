@@ -6,12 +6,15 @@ import Medicine from "../../ethereum/medicine";
 import Order from "../../ethereum/order";
 import web3 from "../../ethereum/web3";
 import Link from "next/link";
+import Head from "next/head";
 
 const links = [
-  { name: "Batches", address: "/manufacturer", active: false },
+  { name: "Batches", address: "/wholesaler/", active: false },
+  { name: "Order", address: "/wholesaler/order", active: false },
   { name: "Orders", address: "#", active: true },
-  { name: "Create", address: "/manufacturer/create", active: false },
-  { name: "Profile", address: "/manufacturer/profile", active: false },
+  { name: "Receive", address: "/wholesaler/receive", active: false },
+  { name: "Send", address: "/wholesaler/send", active: false },
+  { name: "Profile", address: "/wholesaler/profile", active: false },
 ];
 
 export default function batchList() {
@@ -99,6 +102,9 @@ export default function batchList() {
   return (
     <div className="body">
       <NavBar links={links} />
+      <Head>
+        <title>Orders</title>
+      </Head>
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           {loading == true ? (
