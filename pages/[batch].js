@@ -70,12 +70,16 @@ export default function medicine_info() {
                 } else if (ownerInfo[4] == 2) {
                     ownerInfo[4] = "Wholesaler";
                     icon = "wholesale-icon";
-                } else if (ownerInfo[4] == 1) {
+                } else if (ownerInfo[4] == 3) {
                     ownerInfo[4] = "Distributer";
                     icon = "transport-icon3";
-                } else if (ownerInfo[4] == 1) {
+                } else if (ownerInfo[4] == 4) {
                     ownerInfo[4] = "Pharma";
                     icon = "pharma-icon2";
+                }
+                else if (ownerInfo[4] == 5) {
+                    ownerInfo[4] = "Transporter";
+                    icon = "transport-icon1";
                 }
                 const res = await fetch(
                     `https://api.mapbox.com/geocoding/v5/mapbox.places/${

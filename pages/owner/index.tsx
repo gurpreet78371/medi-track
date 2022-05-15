@@ -2,6 +2,7 @@ import React from "react";
 import supplychain from "../../ethereum/supplychain";
 import { useState, useEffect, useRef } from "react";
 import NavBar from "../../components/NavBar";
+import Head from "next/head";
 import Link from "next/link";
 import Map, {
     GeolocateControl,
@@ -21,7 +22,7 @@ export default function userList({ usersInfo }) {
     const [viewState, setViewState] = useState({
         longitude: 76.78532,
         latitude: 30.76728,
-        zoom: 4,
+        zoom: 12,
     });
     const [mode, setMode] = useState(0);
     const mapboxToken =
@@ -44,6 +45,9 @@ export default function userList({ usersInfo }) {
     };
     return (
         <div className="body">
+            <Head>
+                <title>Users</title>
+            </Head>
             <NavBar links={links} />
             <div className="content">
                 <div className="container" style={{ maxWidth: "80%" }}>

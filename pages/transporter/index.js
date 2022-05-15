@@ -4,6 +4,7 @@ import NavBar from "../../components/NavBar";
 import { useState, useEffect } from "react";
 import web3 from "../../ethereum/web3";
 import medicine from "../../ethereum/medicine";
+import Order from "../../ethereum/order";
 
 export default function receive() {
   const [address, setAddress] = useState("");
@@ -32,7 +33,7 @@ export default function receive() {
     event.preventDefault();
     console.log(formvalues);
     setLoading(true);
-    await medicine(formvalues.batch).methods
+    await Order(formvalues.batch).methods
         .pickPackage(
             address,
             parseInt(formvalues.role)
@@ -47,14 +48,14 @@ export default function receive() {
       <NavBar links={links}></NavBar>
       <form className="register-form" onSubmit={pickPackage}>
         <div className="container">
-          <h2>Pick Batch</h2>
-          <p>Please fill in this form to pick a batch.</p>
+          <h2>Pick Order</h2>
+          <p>Please fill in this form to pick a order.</p>
           <label htmlFor="shipper">
-            <b>Batch Address</b>
+            <b>Order Address</b>
           </label>
           <input
             type="text"
-            placeholder="Enter Batch Address"
+            placeholder="Enter Order Address"
             name="batch"
             value={formvalues.batch}
             onChange={(event) => {

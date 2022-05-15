@@ -2,6 +2,7 @@ import React from "react";
 import supplychain from "../../ethereum/supplychain";
 import NavBar from "../../components/NavBar";
 import { useState, useEffect, useCallback, useRef } from "react";
+import Head from "next/head";
 import web3 from "../../ethereum/web3";
 import Map, {
     GeolocateControl,
@@ -53,6 +54,9 @@ export default function register() {
     }, []);
     const registerUser = async (event) => {
         event.preventDefault();
+        if(formvalues.margin==""){
+            setformvalues({...formvalues,margin:"0"});
+        }
         console.log(formvalues);
         setRegistering(true);
         console.log("Registering...");
@@ -89,6 +93,9 @@ export default function register() {
     };
     return (
         <div className="register">
+            <Head>
+                <title>Register User</title>
+            </Head>
             <NavBar links={links}></NavBar>
 
             {step == 1 ? (
@@ -137,22 +144,7 @@ export default function register() {
                             maxLength={42}
                             required
                         />
-                        <label htmlFor="margin">
-                            <b>Margin</b>
-                        </label>
-                        <input
-                            type="number"
-                            placeholder="Enter User's Margin (in %)"
-                            name="margin"
-                            value={formvalues.margin}
-                            onChange={(event) => {
-                                setformvalues({
-                                    ...formvalues,
-                                    margin: event.target.value,
-                                });
-                            }}
-                            required
-                        />
+                        
                         <label htmlFor="role">
                             <b> Role</b>
                         </label>
@@ -177,6 +169,23 @@ export default function register() {
                                 <option value={5}>Transporter</option>
                             </select>
                         </div>
+
+                        {formvalues.role=="2" || formvalues.role=="3"?<div><label htmlFor="margin">
+                            <b>Margin</b>
+                        </label>
+                        <input
+                            type="number"
+                            placeholder="Enter User's Margin (in %)"
+                            name="margin"
+                            value={formvalues.margin}
+                            onChange={(event) => {
+                                setformvalues({
+                                    ...formvalues,
+                                    margin: event.target.value,
+                                });
+                            }}
+                            required
+                        /></div>:null}
                         <div className="clearfix">
                             <button type="submit" className="btn">
                                 Next

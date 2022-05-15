@@ -3,6 +3,7 @@ import supplychain from "../../ethereum/supplychain";
 import NavBar from "../../components/NavBar";
 import { useState, useEffect } from "react";
 import web3 from "../../ethereum/web3";
+import Head from "next/head";
 
 export default function register() {
     const [address, setAddress] = useState("");
@@ -15,7 +16,8 @@ export default function register() {
     });
     const links = [
         { name: "Batches", address: "/manufacturer", active: false },
-        { name: "Create", address: "#", active: true },
+        { name: "Orders", address: "/manufacturer/orders", active: false },
+        { name: "Add Batch", address: "#", active: true },
         { name: "Profile", address: "/manufacturer/profile", active: false },
     ];
 
@@ -59,11 +61,14 @@ export default function register() {
     };
     return (
         <div className="register">
+            <Head>
+                <title>Add new Batch</title>
+            </Head>
             <NavBar links={links}></NavBar>
             <form className="register-form" onSubmit={manufacture}>
                 <div className="container">
-                    <h2>Create Batch</h2>
-                    <p>Please fill in this form to register a batch.</p>
+                    <h2>Add new Batch</h2>
+                    <p>Please fill in this form to add a batch.</p>
                     <label htmlFor="name">
                         <b>Name</b>
                     </label>
@@ -142,7 +147,7 @@ export default function register() {
                             </button>
                         ) : (
                             <button type="submit" className="btn">
-                                Create
+                                Add
                             </button>
                         )}
                     </div>

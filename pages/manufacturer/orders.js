@@ -6,16 +6,18 @@ import Medicine from "../../ethereum/medicine";
 import Order from "../../ethereum/order";
 import web3 from "../../ethereum/web3";
 import Link from "next/link";
+import Head from "next/head";
 
 const links = [
   { name: "Batches", address: "/manufacturer", active: false },
   { name: "Orders", address: "#", active: true },
-  { name: "Create", address: "/manufacturer/create", active: false },
+  { name: "Add Batch", address: "/manufacturer/create", active: false },
   { name: "Profile", address: "/manufacturer/profile", active: false },
 ];
 
 export default function batchList() {
   const [address, setAddress] = useState("0x0");
+  const [ownerInfo,setOwnerInfo]=useState({0:""});
   const [orderInfo, setOrderInfo] = useState([]);
   const [ordersDisplay, setOrdersDisplay] = useState([]);
   const [batchesDisplay, setBatchesDisplay] = useState([]);
@@ -36,6 +38,8 @@ export default function batchList() {
     } else {
       console.log("You are manufacturer");
       setAddress(account);
+      const userInfo=await supplychain.methods.getUserInfo(account).call();
+      setOwnerInfo(userInfo);
       const orders = await supplychain.methods
         .getOredrsReceived()
         .call({ from: account });
@@ -85,7 +89,7 @@ export default function batchList() {
         }
       }
       setOrdersDisplay(orders);
-    } else if (e.target.value == "Not Shipped") {
+    } else if (e.target.value == "Delivered") {
       let orders = [];
       for (let index in orderInfo) {
         if (orderInfo[index][5] == 2) {
@@ -97,6 +101,9 @@ export default function batchList() {
   };
   return (
     <div className="body">
+      <Head>
+        <title>Orders</title>
+      </Head>
       <NavBar links={links} />
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
@@ -133,34 +140,72 @@ export default function batchList() {
               >
                 <div className="flex justify-between">
                   <div>
-                    <h2>{order.receiver[0]}</h2>
+                    <Link href={`/order/${order.address}`}><h2 className="text-black decoration-black cursor-pointer">{order.receiver[0]}</h2></Link>
                     <p className="mb-0">{order[0] / 1000000000000} Eth</p>
                   </div>
-                  {batchesDisplay.indexOf(order.address) != -1 ? (
-                    <button
-                      onClick={() => {
-                        let temp = [];
-                        for (let add of batchesDisplay) {
-                          if (add != order.address) {
-                            temp.push(add);
+                  <div className="flex">
+                    {order[4] ==
+                    "0x0000000000000000000000000000000000000000" ? (
+                      <button className="bg-red-500 text-white decoration-white p-2 rounded my-1 hover:bg-red-600">
+                        <Link href={`/manufacturer/${order.address}`}>
+                          <a className="text-white decoration-white">
+                            Process Order
+                          </a>
+                        </Link>
+                      </button>
+                    ) : null}
+                    {batchesDisplay.indexOf(order.address) != -1 ? (
+                      <span
+                        className="cursor-pointer mx-2 my-3"
+                        onClick={() => {
+                          let temp = [];
+                          for (let add of batchesDisplay) {
+                            if (add != order.address) {
+                              temp.push(add);
+                            }
                           }
-                        }
-                        setBatchesDisplay(temp);
-                      }}
-                    >
-                      Hide Batches
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setBatchesDisplay((batch) =>
-                          batch.concat(order.address)
-                        );
-                      }}
-                    >
-                      Show Batches
-                    </button>
-                  )}
+                          setBatchesDisplay(temp);
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          className="bi bi-chevron-up"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
+                          />
+                        </svg>
+                      </span>
+                    ) : (
+                      <span
+                        className="cursor-pointer mx-2 my-3"
+                        onClick={() => {
+                          setBatchesDisplay((batch) =>
+                            batch.concat(order.address)
+                          );
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          fill="currentColor"
+                          className="bi bi-chevron-down"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
                 </div>
                 {batchesDisplay.indexOf(order.address) != -1 ? (
                   <div>
@@ -168,13 +213,16 @@ export default function batchList() {
                     {order.batchDetails.map((batch, index) => {
                       return (
                         <div className="my-2" key={order[1][index]}>
-                          <div className="flex justify-between">
-                            <h6>{batch[0]}</h6>
+                          <div className="flex justify-between my-1">
+                            <div>
+                              <span className="font-medium text-lg">{batch[0]}</span>
+                              <span className="text-gray-400"> ( {batch[1]} units )</span>
+                            </div>
                             <p className="m-0">
                               {batch[6] / 1000000000000} Eth
                             </p>
                           </div>
-                          <p className="m-0">{batch[1]} units</p>
+                          <p className="m-0">Manufactured By: {ownerInfo[0]}</p>
                         </div>
                       );
                     })}
