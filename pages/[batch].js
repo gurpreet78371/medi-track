@@ -124,8 +124,8 @@ export default function medicine_info() {
                             <div className="right">{medInfo[2]}</div>
                         </div>
                         <div className="row1">
-                            <div className="left">Price (in Wei):</div>
-                            <div className="right">{medInfo[6]}</div>
+                            <div className="left">Price (in ETH):</div>
+                            <div className="right">{medInfo[6]/1000000000000}</div>
                         </div>
                         <div className="row1">
                             <div className="left">Expiry</div>
