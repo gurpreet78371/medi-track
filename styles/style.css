@@ -213,6 +213,7 @@ html {
   pointer-events: none;
   color: black !important;
 }
+
 .main-footer {
   display: flex;
   flex-direction: column;

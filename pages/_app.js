@@ -4,8 +4,9 @@ import "../styles/owner-user-list.css";
 import "../styles/register.css";
 import "../styles/medicine-info.css";
 import "../styles/delhivery.css";
+import "../styles/contact.css";
 import "bootstrap/dist/css/bootstrap.css";
-import 'mapbox-gl/dist/mapbox-gl.css'
+import "mapbox-gl/dist/mapbox-gl.css";
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
