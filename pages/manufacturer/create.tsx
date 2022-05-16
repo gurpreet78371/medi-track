@@ -15,7 +15,8 @@ export default function register() {
         expiry: String(new Date()),
     });
     const links = [
-        { name: "Batches", address: "/manufacturer", active: false },
+        { name: "Dashboard", address: "/manufacturer/dashboard", active: false },
+        { name: "Inventory", address: "/manufacturer", active: false },
         { name: "Orders", address: "/manufacturer/orders", active: false },
         { name: "Add Batch", address: "#", active: true },
         { name: "Profile", address: "/manufacturer/profile", active: false },
@@ -44,7 +45,7 @@ export default function register() {
                 formvalues.name,
                 parseInt(formvalues.quantity),
                 formvalues.expiry,
-                formvalues.price,
+                parseInt(String(parseFloat(formvalues.price)*1000000000000)),
                 date
             )
             .send({
@@ -102,11 +103,11 @@ export default function register() {
                         required
                     />
                     <label htmlFor="price">
-                        <b>Price (in Wei)</b>
+                        <b>Price (in ETH)</b>
                     </label>
                     <input
                         type="number"
-                        placeholder="Enter Batch Price (in Wei)"
+                        placeholder="Enter Batch Price (in ETH)"
                         name="price"
                         value={formvalues.price}
                         onChange={(event) => {

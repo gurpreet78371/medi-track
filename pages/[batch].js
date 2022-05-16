@@ -19,7 +19,7 @@ export default function medicine_info() {
     const [viewState, setViewState] = useState({
         longitude: 76.78532,
         latitude: 30.76728,
-        zoom: 4,
+        zoom: 12,
     });
     const router = useRouter();
     const batch = router.query.batch;
