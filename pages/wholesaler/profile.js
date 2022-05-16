@@ -72,11 +72,10 @@ export default function userDetail() {
     });
   }, []);
   const links = [
-    { name: "Batches", address: "/wholesaler/", active: false },
+    { name: "Inventory", address: "/wholesaler/", active: false },
     { name: "Order", address: "/wholesaler/order", active: false },
     { name: "Orders", address: "/wholesaler/orders", active: false },
     { name: "Receive", address: "/wholesaler/receive", active: false },
-    { name: "Send", address: "/wholesaler/send", active: false },
     { name: "Profile", address: "#", active: true },
   ];
   return (

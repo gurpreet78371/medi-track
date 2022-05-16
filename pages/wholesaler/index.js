@@ -8,11 +8,10 @@ import Link from "next/link";
 import Head from "next/head";
 
 const links = [
-  { name: "Batches", address: "#", active: true },
+  { name: "Inventory", address: "#", active: true },
   { name: "Order", address: "/wholesaler/order", active: false},
   { name: "Orders", address: "/wholesaler/orders", active: false},
   { name: "Receive", address: "/wholesaler/receive", active: false },
-  { name: "Send", address: "/wholesaler/send", active: false},
   { name: "Profile", address: "/wholesaler/profile", active: false}
 ];
 

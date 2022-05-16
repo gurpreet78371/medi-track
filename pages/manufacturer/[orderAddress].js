@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import NavBar from "../../components/NavBar";
 import Link from "next/link";
+import Head from "next/head";
 import Map, {
   GeolocateControl,
   Marker,
@@ -14,8 +15,11 @@ import Map, {
 } from "react-map-gl";
 
 const links = [
-  { name: "Users", address: "#", active: true },
-  { name: "Register", address: "/owner/register", active: false },
+  { name: "Dashboard", address: "/manufacturer/dashboard", active: false },
+  { name: "Inventory", address: "/manufacturer", active: false },
+  { name: "Orders", address: "/manufacturer/orders", active: true },
+  { name: "Add Batch", address: "/manufacturer/create", active: false },
+  { name: "Profile", address: "/manufacturer/profile", active: false },
 ];
 
 export default function userList() {
@@ -87,6 +91,9 @@ export default function userList() {
   return (
     <div className="body">
       <NavBar links={links} />
+      <Head>
+        <title>Select Shipper</title>
+      </Head>
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
           <div className="table-responsive custom-table-responsive">

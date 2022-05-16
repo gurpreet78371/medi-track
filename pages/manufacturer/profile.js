@@ -72,16 +72,17 @@ export default function userDetail() {
     });
   }, []);
   const links = [
-    { name: "Batches", address: "/manufacturer", active: false },
-  { name: "Orders", address: "/manufacturer/orders", active: false },
-  { name: "Add Batch", address: "/manufacturer/create", active: false },
-  { name: "Profile", address: "#", active: true },
+    { name: "Dashboard", address: "/manufacturer/dashboard", active: false },
+    { name: "Inventory", address: "/manufacturer", active: false },
+    { name: "Orders", address: "/manufacturer/orders", active: false },
+    { name: "Add Batch", address: "/manufacturer/create", active: false },
+    { name: "Profile", address: "#", active: true },
   ];
   return (
     <div className="body">
-        <Head>
-            <title>Profile</title>
-        </Head>
+      <Head>
+        <title>Profile</title>
+      </Head>
       <div className="nav-box">
         <NavBar links={links} />
       </div>

@@ -12,7 +12,7 @@ import Chart from "chart.js/auto";
 
 const links = [
   { name: "Dashboard", address: "#", active: true },
-  { name: "Batches", address: "/manufacturer/", active: false },
+  { name: "Inventory", address: "/manufacturer/", active: false },
   { name: "Orders", address: "/manufacturer/orders", active: false },
   { name: "Add Batch", address: "/manufacturer/create", active: false },
   { name: "Profile", address: "/manufacturer/profile", active: false },
@@ -21,9 +21,9 @@ const links = [
 export default function batchList() {
   const [address, setAddress] = useState("0x0");
   const [medicines, setMedicines] = useState([]);
-  const [salesData, setSalesData] = useState({});
-  const [typeData, setTypeData] = useState({});
-  const [buyerData, setBuyerData] = useState({});
+  const [salesData, setSalesData] = useState();
+  const [typeData, setTypeData] = useState();
+  const [buyerData, setBuyerData] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
@@ -55,7 +55,7 @@ export default function batchList() {
         datasets: [
           {
             label: "Sales in last 6 months",
-            data: [0,0,0,0,0,0],
+            data: [0, 0, 0, 0, 0, 0],
             backgroundColor: [
               "rgb(255, 99, 132)",
               "rgb(54, 162, 235)",
@@ -84,11 +84,11 @@ export default function batchList() {
           },
         ],
       };
-      let buyers={
+      let buyers = {
         labels: [],
         datasets: [
           {
-            label: "Sales in last 6 months",
+            label: "Sales",
             data: [],
             backgroundColor: [
               "rgb(255, 99, 132)",
@@ -100,47 +100,47 @@ export default function batchList() {
             ],
           },
         ],
-      }
+      };
       for (let med in meds) {
         const medicine = Medicine(meds[med]);
         const info = await medicine.methods.getInfo().call();
-        if(info[3][1]!='0x0000000000000000000000000000000000000000'){
-            sales['datasets'][0]['data'][0]+=info[6]/1000000000000;
+        if (info[3][1] != "0x0000000000000000000000000000000000000000") {
+          sales["datasets"][0]["data"][0] += info[6] / 1000000000000;
+          if (types["labels"].indexOf(info[0]) == -1) {
+            types["labels"].push(info[0]);
+            types["datasets"][0]["data"].push(info[6] / 1000000000000);
+          } else {
+            types["datasets"][0]["data"][types["labels"].indexOf(info[0])] +=
+              info[6] / 1000000000000;
+          }
+          if (buyers["labels"].indexOf(info[3][1]) == -1) {
+            buyers["labels"].push(info[3][1]);
+            buyers["datasets"][0]["data"].push(info[6] / 1000000000000);
+          } else {
+            buyers["datasets"][0]["data"][
+              buyers["labels"].indexOf(info[3][1])
+            ] += info[6] / 1000000000000;
+          }
         }
         console.log(info);
         medsInfo.push({ ...info, address: meds[med] });
       }
       console.log(medsInfo);
       setMedicines(medsInfo);
+      setSalesData(sales);
+      setTypeData(types);
+      for (let index in buyers["labels"]) {
+        let user = await supplychain.methods
+          .getUserInfo(buyers["labels"][index])
+          .call();
+        console.log(user);
+        buyers["labels"][index] = user[0];
+      }
+      setBuyerData(buyers);
     }
     setLoading(false);
   }, []);
 
-  const data = {
-    labels: [
-      "Tablets",
-      "Solution",
-      "Injections",
-      "Tablets",
-      "Solution",
-      "Injections",
-    ],
-    datasets: [
-      {
-        label: "My First Dataset",
-        data: [300, 50, 100, 200, 125, 250],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-          "rgb(245, 199, 182)",
-          "rgb(54, 192, 135)",
-          "rgb(155, 245, 86)",
-        ],
-        hoverOffset: 4,
-      },
-    ],
-  };
   return (
     <div className="body">
       <Head>
@@ -149,58 +149,145 @@ export default function batchList() {
       <NavBar links={links} />
       <div className="content">
         <div className="container" style={{ maxWidth: "80%" }}>
-          <div className="flex justify-evenly">
-            <div className="">
-              <Pie
-                data={data}
-                options={{
-                  plugins: {
-                    title: {
-                      display: true,
-                      text: "Medicines Sold",
-                    },
-                    legend: {
-                      display: true,
-                      position: "bottom",
-                    },
-                  },
-                }}
-              ></Pie>
-              <table className="table table-striped mt-2">
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>May 2022</th>
-                    <th>April 2022</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>Tablet</th>
-                    <td>100</td>
-                    <td>50</td>
-                  </tr>
-                </tbody>
-              </table>
+          {loading == true ? (
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
             </div>
-            <div className="">
-              <Bar
-                data={data}
-                options={{
-                  plugins: {
-                    title: {
-                      display: true,
-                      text: "Medicines Sold",
-                    },
-                    legend: {
-                      display: true,
-                      position: "bottom",
-                    },
-                  },
-                }}
-              ></Bar>
+          ) : (
+            <div>
+              <h3 className="my-2">Sales this month: </h3>
+              {typeData != null ? (
+                <div className="flex justify-evenly my-32">
+                  <div className="">
+                    <Pie
+                      data={typeData}
+                      options={{
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "Medicines Sold",
+                          },
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                          },
+                        },
+                      }}
+                    ></Pie>
+                  </div>
+                  <div>
+                    <table className="table table-striped table-hover mt-2 p-2">
+                      <thead>
+                        <tr>
+                          <th>Medicine</th>
+                          <th>Sales (in Eth)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {typeData["labels"].map((med, index) => {
+                          return (
+                            <tr>
+                              <th>{med}</th>
+                              <td>{typeData["datasets"][0]["data"][index]}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              <hr></hr>
+              <h3 className="my-2">Sales in last 6 months:</h3>
+              {salesData != null ? (
+                <div className="flex justify-evenly my-32">
+                  <div className="h-3/5 w-3/5">
+                    <Bar
+                      data={salesData}
+                      options={{
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "Sales in last 6 months",
+                          },
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                          },
+                        },
+                      }}
+                    ></Bar>
+                  </div>
+                  <div>
+                    <table className="table table-striped table-hover mt-2 p-2">
+                      <thead>
+                        <tr>
+                          <th>Month</th>
+                          <th>Sales (in Eth)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {salesData["labels"].map((year, index) => {
+                          return (
+                            <tr>
+                              <th>{year}</th>
+                              <td>{salesData["datasets"][0]["data"][index]}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
+              <hr></hr>
+              <h3 className="my-2">Major Buyers:</h3>
+              {buyerData != null ? (
+                <div className="flex justify-evenly mt-32">
+                  <div className="">
+                    <Pie
+                      data={buyerData}
+                      options={{
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "Major Buyers",
+                          },
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                          },
+                        },
+                      }}
+                    ></Pie>
+                  </div>
+                  <div>
+                    <table className="table table-striped table-hover mt-2 p-2">
+                      <thead>
+                        <tr>
+                          <th>Buyer</th>
+                          <th>Orders value (in Eth)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {buyerData["labels"].map((buyer, index) => {
+                          console.log(buyer);
+                          return (
+                            <tr>
+                              <th>{buyer}</th>
+                              <td>{buyerData["datasets"][0]["data"][index]}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ) : null}
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

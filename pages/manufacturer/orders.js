@@ -9,7 +9,8 @@ import Link from "next/link";
 import Head from "next/head";
 
 const links = [
-  { name: "Batches", address: "/manufacturer", active: false },
+  { name: "Dashboard", address: "/manufacturer/dashboard", active: false },
+  { name: "Inventory", address: "/manufacturer", active: false },
   { name: "Orders", address: "#", active: true },
   { name: "Add Batch", address: "/manufacturer/create", active: false },
   { name: "Profile", address: "/manufacturer/profile", active: false },
@@ -135,7 +136,7 @@ export default function batchList() {
           {ordersDisplay.map((order) => {
             return (
               <div
-                className="my-2 bg-white shadow-md py-3 px-4 rounded-md"
+                className="my-4 bg-white shadow-md py-3 px-4 rounded-md"
                 key={order.address}
               >
                 <div className="flex justify-between">

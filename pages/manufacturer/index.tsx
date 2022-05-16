@@ -9,7 +9,7 @@ import Head from "next/head";
 
 const links = [
     { name: "Dashboard", address: "/manufacturer/dashboard", active: false },
-    { name: "Batches", address: "#", active: true },
+    { name: "Inventory", address: "#", active: true },
     { name: "Orders", address: "/manufacturer/orders", active: false },
     { name: "Add Batch", address: "/manufacturer/create", active: false },
     { name: "Profile", address: "/manufacturer/profile", active: false },
@@ -62,11 +62,11 @@ export default function batchList() {
             for (let med in medicines) {
                 console.log(med);
                 console.log(medicines[med]);
-                if (e.target.value == "Shipped" && medicines[med][3] != 0) {
+                if (e.target.value == "Shipped" && medicines[med][2] != 0) {
                     meds.push(medicines[med]);
                 } else if (
                     e.target.value == "NotShipped" &&
-                    medicines[med][3] == 0
+                    medicines[med][2] == 0
                 ) {
                     meds.push(medicines[med]);
                 }
@@ -77,7 +77,7 @@ export default function batchList() {
     return (
         <div className="body">
             <Head>
-                <title>Batches</title>
+                <title>Inventory</title>
             </Head>
             <NavBar links={links} />
             <div className="content">
