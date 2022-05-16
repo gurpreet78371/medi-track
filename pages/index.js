@@ -71,6 +71,11 @@ export default function index() {
             <a href="#">MediTrack Blockchain Transparent Supply</a>
           </div>
           <ul className="menu">
+          <li>
+                <a className="menu-btn" href="/contact">
+                  Contact Us
+                </a>
+              </li>
             {address == "" && loading == false ? (
               <li>
                 <a className="menu-btn" onClick={getAddress}>
@@ -80,7 +85,7 @@ export default function index() {
             ) : (
               <li></li>
             )}
-            {loading ? <li className="menu-btn">Loading...</li> : <li></li>}
+            {loading ? <li className="menu-btn mx-2">Loading...</li> : <li></li>}
             {address != "" && loading == false ? (
               <li>
                 <a href={`/${encodeURIComponent(role)}`} className="menu-btn">

@@ -62,13 +62,13 @@ export default function contact() {
       <Head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Contact Us</title>
       </Head>
       {/* <!-- navbar section start --> */}
       <nav className="home-navbar sticky">
         <div className="max-width">
           <div className="logo">
-            <a href="#">MediTrack Blockchain Transparent Supply</a>
+            <a href="/">MediTrack Blockchain Transparent Supply</a>
           </div>
           <ul className="menu">
             {address == "" && loading == false ? (
