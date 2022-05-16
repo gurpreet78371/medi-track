@@ -3,6 +3,7 @@ import supplychain from "../../ethereum/supplychain";
 import NavBar from "../../components/NavBar";
 import { useState, useEffect } from "react";
 import web3 from "../../ethereum/web3";
+import Head from "next/head";
 
 export default function receive() {
   const [address, setAddress] = useState("");
@@ -12,10 +13,11 @@ export default function receive() {
     condition: 0,
   });
   const links = [
-    { name: "Batches", address: "/wholesaler", active: false },
+    { name: "Inventory", address: "/wholesaler/", active: false },
+    { name: "Order", address: "/wholesaler/order", active: false },
+    { name: "Orders", address: "/wholesaler/orders", active: false },
     { name: "Receive", address: "#", active: true },
-    { name: "Send", address: "/wholesaler/send", active: false},
-    { name: "Profile", address: "/wholesaler/profile", active: false}
+    { name: "Profile", address: "/wholesaler/profile", active: false },
   ];
 
   useEffect(async () => {
@@ -47,16 +49,19 @@ export default function receive() {
   return (
     <div className="register">
       <NavBar links={links}></NavBar>
+      <Head>
+        <title>Receive Order</title>
+      </Head>
       <form className="register-form" onSubmit={receivePackage}>
         <div className="container">
-          <h2>Receive Batch</h2>
-          <p>Please fill in this form to receive a batch.</p>
+          <h2>Receive Order</h2>
+          <p>Please fill in this form to receive an Order.</p>
           <label htmlFor="shipper">
-            <b>Batch Address</b>
+            <b>Order Address</b>
           </label>
           <input
             type="text"
-            placeholder="Enter Batch Address"
+            placeholder="Enter Order Address"
             name="batch"
             value={formvalues.batch}
             onChange={(event) => {

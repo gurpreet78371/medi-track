@@ -12,11 +12,10 @@ import Map, {
 import Head from "next/head";
 
 const links = [
-  { name: "Batches", address: "/wholesaler/", active: false },
+  { name: "Inventory", address: "/wholesaler/", active: false },
   { name: "Order", address: "#", active: true },
   { name: "Orders", address: "/wholesaler/orders", active: false },
   { name: "Receive", address: "/wholesaler/receive", active: false },
-  { name: "Send", address: "/wholesaler/send", active: false },
   { name: "Profile", address: "/wholesaler/profile", active: false },
 ];
 
