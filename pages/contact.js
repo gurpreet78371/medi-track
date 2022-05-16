@@ -139,18 +139,13 @@ export default function contact() {
                   </span>
                   <h6>Dr. Rupali Verma</h6>
                   <div className="fields">
-                    <div className="left">Phone:</div>
-                    <div className="right">+918837885175</div>
+                    <div className="left">Qualification:</div>
+                    <div className="right">Professor</div>
                   </div>
                   <br />
                   <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
-                  </div>
-                  <br />
-                  <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
+                    <div className="left">Department</div>
+                    <div className="right">CSE</div>
                   </div>
                 </div>
               </div>
@@ -160,20 +155,15 @@ export default function contact() {
                   <span className="icon feature_box_col_three">
                     <i className="fa fa-hourglass-half" />
                   </span>
-                  <h6>Dr. Arun</h6>
+                  <h6>Dr. Arun Singh</h6>
                   <div className="fields">
-                    <div className="left">Phone:</div>
-                    <div className="right">+918837885175</div>
+                    <div className="left">Qualification:</div>
+                    <div className="right">Assistant Professor</div>
                   </div>
                   <br />
                   <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
-                  </div>
-                  <br />
-                  <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
+                    <div className="left">Department</div>
+                    <div className="right">CSE</div>
                   </div>
                 </div>
               </div>
@@ -184,18 +174,13 @@ export default function contact() {
                   </span>
                   <h6>Gurpreet Singh</h6>
                   <div className="fields">
-                    <div className="left">Phone:</div>
-                    <div className="right">+918837885175</div>
+                    <div className="left">Qualification:</div>
+                    <div className="right">B.tech.</div>
                   </div>
                   <br />
                   <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
-                  </div>
-                  <br />
-                  <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
+                    <div className="left">Department</div>
+                    <div className="right">CSE</div>
                   </div>
                 </div>
               </div>
@@ -207,18 +192,13 @@ export default function contact() {
                   </span>
                   <h6>Piyush Girdhar</h6>
                   <div className="fields">
-                    <div className="left">Phone:</div>
-                    <div className="right">+918837885175</div>
+                    <div className="left">Qualification:</div>
+                    <div className="right">B.tech.</div>
                   </div>
                   <br />
                   <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
-                  </div>
-                  <br />
-                  <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
+                    <div className="left">Department</div>
+                    <div className="right">CSE</div>
                   </div>
                 </div>
               </div>
@@ -230,18 +210,13 @@ export default function contact() {
                   </span>
                   <h6>Anmol Salhvi</h6>
                   <div className="fields">
-                    <div className="left">Phone:</div>
-                    <div className="right">+918837885175</div>
+                    <div className="left">Qualification:</div>
+                    <div className="right">B.tech.</div>
                   </div>
                   <br />
                   <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
-                  </div>
-                  <br />
-                  <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
+                    <div className="left">Department</div>
+                    <div className="right">CSE</div>
                   </div>
                 </div>
               </div>
@@ -252,18 +227,13 @@ export default function contact() {
                   </span>
                   <h6>Ajay Thandaik</h6>
                   <div className="fields">
-                    <div className="left">Phone:</div>
-                    <div className="right">+918837885175</div>
+                    <div className="left">Qualification:</div>
+                    <div className="right">B.tech.</div>
                   </div>
                   <br />
                   <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
-                  </div>
-                  <br />
-                  <div className="fields">
-                    <div className="left">key</div>
-                    <div className="right">value</div>
+                    <div className="left">Department</div>
+                    <div className="right">CSE</div>
                   </div>
                 </div>
               </div>
